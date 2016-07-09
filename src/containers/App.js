@@ -20,8 +20,8 @@ class App extends Component {
 
   render() {
       return (
-          <Main dispatch={this.props.dispatch} 
-                specOptions={this.props.specOptions}
+          <Main dispatch={this.props.dispatch}
+                state={this.props.state}
           />);
   }
 }
@@ -31,11 +31,10 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  specOptions: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
-  const props = { specOptions: state.specOptions };
+  const props = { state };
   return props;
 }
 function mapDispatchToProps(dispatch) {

@@ -9,8 +9,10 @@ class AppComponent extends React.Component {
         return (
             <div className="index">
                 <SpecLinesBuilder
-                    categories={this.props.specOptions.categories}
-                    products={this.props.specOptions.products}
+                    dispatch={this.props.dispatch}
+                    categories={this.props.state.specOptions.categories}
+                    products={this.props.state.specOptions.products}
+                    chosenProducts={this.props.state.chosenProducts}
                 />
             </div>
         );

@@ -5,17 +5,11 @@ import React from 'react';
 export default React.createClass({
     PropTypes: {
         products: React.PropTypes.array.isRequired,
-        chosenProducts: React.PropTypes.array,
         selectedProductId: React.PropTypes.number
     },
 
-    getProducts() {
-        let products = [...this.props.products, ...this.props.chosenProducts];
-        return products;
-    },
-
     renderDropdown() {
-        let products = this.getProducts();
+        let products = this.props.products;
 
         let options = _.map(products, (p, idx) => {
             return (
