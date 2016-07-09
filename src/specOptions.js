@@ -43,7 +43,7 @@ export default {
         categoryId: 4,
         chipsetId: 1,
         caseType: 1
-    }
+    },
     //Case type
     {
         id: 7,

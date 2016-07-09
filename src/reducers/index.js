@@ -8,5 +8,5 @@
  */
 import { combineReducers } from 'redux';
 /* Populated by react-webpack-redux:reducer */
-const reducers = {};
+const reducers = { specOptions: require('../reducers/specOptions.js') };
 module.exports = combineReducers(reducers);
