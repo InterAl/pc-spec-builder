@@ -1,37 +1,20 @@
-import _ from 'lodash';
 require('normalize.css/normalize.css');
 require('styles/App.css');
-
+import _ from 'lodash';
 import React from 'react';
-
-let yeomanImage = require('../images/yeoman.png');
+import SpecLinesBuilder from './SpecLinesBuilder';
 
 class AppComponent extends React.Component {
-  renderProducts() {
-      return _.map(this.props.specOptions.products, p => {
-          return (
-              <div>
-                  {p.name}
-              </div>
-          );
-      });
-  }
-
-  renderSpecOptions() {
-      return (
-          <div>
-              {this.renderProducts()}
-          </div>
-      );
-  }
-
-  render() {
-    return (
-      <div className="index">
-          {this.renderSpecOptions()}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="index">
+                <SpecLinesBuilder
+                    categories={this.props.specOptions.categories}
+                    products={this.props.specOptions.products}
+                />
+            </div>
+        );
+    }
 }
 
 AppComponent.defaultProps = {

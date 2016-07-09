@@ -31,7 +31,6 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  actions: PropTypes.object.isRequired,
   specOptions: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
