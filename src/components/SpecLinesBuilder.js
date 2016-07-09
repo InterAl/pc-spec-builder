@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import * as actions from '../actions/chosenProducts';
 import SpecLine from './SpecLine';
+import categoryLinesSelector from '../selectors/categoryLines';
 
 export default React.createClass({
     PropTypes: {
@@ -17,33 +18,18 @@ export default React.createClass({
     },
 
     renderCategoryLine(category, idx) {
-        let categoryProducts = _.filter(this.props.products,
-                                        p => p.categoryId === category.id);
-
-        let chosenProducts = _.intersectionWith(categoryProducts,
-                                                this.props.chosenProducts,
-                                                (a, b) => a.id === b.id);
-
-        chosenProducts = chosenProducts.concat(
-             _.filter(this.props.chosenProducts,
-                      p => !p.id && p.categoryId === category.id)
-        );
-
-        let chosenProductComponents = _.map(chosenProducts,
-                  (p, idx) => (
-                      <SpecLine key={idx}
-                                products={categoryProducts}
-                                selectedProductId={p.id}/>
-                  ));
+        let productComponents = _.map(category.productLines,
+          (chosenProduct, idx) => (
+              <SpecLine key={idx}
+                        products={category.availableProducts}
+                        selectedProductId={chosenProduct.id}/>
+          ));
 
         return (
             <div className="categoryLine" key={idx}>
                 <div className="title">{category.name}</div>
                 <div>
-                    {_.isEmpty(chosenProducts) ?
-                        <SpecLine products={categoryProducts} /> :
-                        chosenProductComponents
-                    }
+                    {productComponents}
                 </div>
                 <div className="addLineBtn">
                     <button onClick={() => this.handleAddLine(category.id)}>
@@ -55,7 +41,13 @@ export default React.createClass({
     },
 
     renderCategories() {
-        return _.map(this.props.categories, this.renderCategoryLine);
+        let categories = categoryLinesSelector({
+            products: this.props.products,
+            categories: this.props.categories,
+            chosenProducts: this.props.chosenProducts
+        });
+
+        return _.map(categories, this.renderCategoryLine);
     },
 
     render() {
