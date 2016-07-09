@@ -20,7 +20,9 @@ export default React.createClass({
     renderCategoryLine(category, idx) {
         let productComponents = _.map(category.productLines,
           (chosenProduct, idx) => (
-              <SpecLine key={idx}
+              <SpecLine dispatch={this.props.dispatch}
+                        key={chosenProduct.lineId}
+                        lineId={chosenProduct.lineId}
                         products={category.availableProducts}
                         selectedProductId={chosenProduct.id}/>
           ));

@@ -15,3 +15,12 @@ export function addEmptySpecLine(categoryId) {
         categoryId
     };
 }
+
+export const DELETE_SPECLINE = 'DELETE_SPECLINE';
+
+export function deleteSpecLine(lineId) {
+    return {
+        type: DELETE_SPECLINE,
+        lineId
+    };
+}
