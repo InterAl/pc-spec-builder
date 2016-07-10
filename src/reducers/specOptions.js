@@ -3,23 +3,24 @@ import * as specOptionsActions from '../actions/setSpecOptions';
 const initialState = {};
 
 module.exports = function(state = initialState, action) {
-  /* Keep the reducer clean - do not mutate the original state. */
-  //let nextState = Object.assign({}, state);
+    /* Keep the reducer clean - do not mutate the original state. */
+    //let nextState = Object.assign({}, state);
 
-  switch(action.type) {
+    switch(action.type) {
 
-    case specOptionsActions.SET_SPEC_OPTIONS: {
-        const nextState = {
-            ...state,
-            ...action.specOptions
-        };
+        case specOptionsActions.SET_SPEC_OPTIONS: {
+            const nextState = {
+                ...state,
+                ...action.specOptions
+            };
 
-        return nextState;
-    } break;
+            return nextState;
+        }
+        break;
 
-    default: {
-      /* Return original state if no actions were consumed. */
-      return state;
+        default: {
+            /* Return original state if no actions were consumed. */
+            return state;
+        }
     }
-  }
 }

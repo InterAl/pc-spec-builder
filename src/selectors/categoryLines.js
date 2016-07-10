@@ -12,8 +12,10 @@ export default createSelector(
         }));
 
         let categoryLines = _.reduce(categories, (acc, cat) => {
-            let productLines =
-                _.filter(chosenProducts, p => p.categoryId === cat.id);
+            let productLines = _(chosenProducts)
+                .filter(p => p.categoryId === cat.id)
+                .sortBy(p => p.time)
+                .value();
 
             let availableProducts =
                 _.filter(products, p => p.categoryId === cat.id);

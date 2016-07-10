@@ -1,4 +1,6 @@
 export default {
+    addCartCommand: "http://www.plonter.co.il/Products_ShoppingCart.tmpl?command=add&cart=14681701055765449&db=%5Ecatalog.txt&lang=heb&sku={productId}&submit1.x=93&submit1.y=15&quantity={quantity}",
+
     products: [
     //CPU
     {

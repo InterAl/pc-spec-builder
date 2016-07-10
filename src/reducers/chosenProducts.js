@@ -15,10 +15,9 @@ export default function(state = initialState, action) {
 
     switch(action.type) {
         case ADD_EMPTY_SPECLINE: {
-            const newChosenProduct = {
-                categoryId: action.categoryId,
-                lineId: guid()
-            };
+            const newChosenProduct = createLine({
+                categoryId: action.categoryId
+            });
 
             nextState = [
                 ...state,
@@ -28,9 +27,8 @@ export default function(state = initialState, action) {
         break;
 
         case SET_CHOSEN_PRODUCTS: {
-            let chosenProducts = action.chosenProducts.map(p => ({
-                ...p,
-                lineId: guid()
+            let chosenProducts = action.chosenProducts.map(p => createLine({
+                ...p
             }));
 
             nextState = [
@@ -65,4 +63,11 @@ export default function(state = initialState, action) {
     }
 
     return nextState;
+}
+
+function createLine(mixin) {
+    return _.extend({
+        lineId: guid(),
+        time: new Date()
+    }, mixin);
 }
