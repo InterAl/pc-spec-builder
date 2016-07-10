@@ -38,3 +38,18 @@ export function selectProduct(productId, lineId) {
         productId
     };
 }
+
+export const CHANGE_PRODUCT_QUANTITY = 'CHANGE_PRODUCT_QUANTITY';
+
+export function changeProductQuantity(lineId, quantity) {
+    quantity = Number(quantity);
+
+    if (isNaN(quantity))
+        return;
+
+    return {
+        type: CHANGE_PRODUCT_QUANTITY,
+        lineId,
+        quantity
+    };
+}

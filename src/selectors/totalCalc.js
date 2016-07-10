@@ -7,7 +7,7 @@ export default createSelector(
     (products, chosenProducts) => {
         let totalSum = _.reduce(chosenProducts, (acc, cp) => {
             let product = _.find(products, p => p.id === cp.productId);
-            return acc + (product ? product.price : 0);
+            return acc + (product ? product.price * cp.quantity : 0);
         }, 0);
 
         return totalSum;

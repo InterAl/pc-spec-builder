@@ -5,7 +5,8 @@ import {
     ADD_EMPTY_SPECLINE,
     SET_CHOSEN_PRODUCTS,
     DELETE_SPECLINE,
-    SELECT_PRODUCT
+    SELECT_PRODUCT,
+    CHANGE_PRODUCT_QUANTITY
 } from '../actions/chosenProducts';
 
 const initialState = [];
@@ -52,7 +53,8 @@ export default function(state = initialState, action) {
             let line = _.find(state, l => l.lineId === action.lineId);
 
             let nextLine = {
-                ...line, productId: action.productId
+                ...line,
+                productId: action.productId
             };
 
             nextState = [..._.reject(state, l => l.lineId === action.lineId),
@@ -60,6 +62,18 @@ export default function(state = initialState, action) {
         }
         break;
 
+        case CHANGE_PRODUCT_QUANTITY: {
+            let line = _.find(state, l => l.lineId === action.lineId);
+            
+            let nextLine = {
+                ...line,
+                quantity: action.quantity
+            };
+
+            nextState = [..._.reject(state, l => l.lineId === action.lineId),
+                         nextLine];
+        }
+        break;
     }
 
     return nextState;

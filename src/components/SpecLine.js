@@ -23,6 +23,12 @@ export default React.createClass({
         this.props.dispatch(payload);
     },
 
+    handleQuantityChange(event) {
+        let payload = actions.changeProductQuantity(this.props.chosenProduct.lineId,
+                                                    event.target.value);
+        payload && this.props.dispatch(payload);
+    },
+
     renderDropdown() {
         let products = this.props.products;
 
@@ -45,6 +51,7 @@ export default React.createClass({
         return (
             <div className="quantity">
                 <input type="textbox"
+                       onChange={this.handleQuantityChange}
                        value={this.props.chosenProduct.quantity}
                        size={2} />
             </div>
