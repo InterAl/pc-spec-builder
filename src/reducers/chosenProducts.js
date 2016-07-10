@@ -4,7 +4,8 @@ import guid from '../guid';
 import {
     ADD_EMPTY_SPECLINE,
     SET_CHOSEN_PRODUCTS,
-    DELETE_SPECLINE
+    DELETE_SPECLINE,
+    SELECT_PRODUCT
 } from '../actions/chosenProducts';
 
 const initialState = [];
@@ -43,6 +44,24 @@ export default function(state = initialState, action) {
             nextState = _.filter(state, p => p.lineId !== action.lineId);
         }
         break;
+
+        case SELECT_PRODUCT: {
+            if (!action.lineId) {
+                console.error("No lineId supplied!");
+                return state;
+            }
+
+            let line = _.find(state, l => l.lineId === action.lineId);
+
+            let nextLine = {
+                ...line, productId: action.productId
+            };
+
+            nextState = [..._.reject(state, l => l.lineId === action.lineId),
+                         nextLine];
+        }
+        break;
+
     }
 
     return nextState;

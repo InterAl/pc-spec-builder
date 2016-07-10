@@ -1,3 +1,5 @@
+import guid from '../guid';
+
 export const SET_CHOSEN_PRODUCTS = 'SET_CHOSEN_PRODUCTS';
 
 export function setChosenProducts(chosenProducts) {
@@ -22,5 +24,17 @@ export function deleteSpecLine(lineId) {
     return {
         type: DELETE_SPECLINE,
         lineId
+    };
+}
+
+export const SELECT_PRODUCT = 'SELECT_PRODUCT';
+
+export function selectProduct(productId, lineId) {
+    productId = Number(productId);
+
+    return {
+        type: SELECT_PRODUCT,
+        lineId,
+        productId
     };
 }

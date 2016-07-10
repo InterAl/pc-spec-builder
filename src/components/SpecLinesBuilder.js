@@ -4,6 +4,7 @@ import React from 'react';
 import * as actions from '../actions/chosenProducts';
 import SpecLine from './SpecLine';
 import categoryLinesSelector from '../selectors/categoryLines';
+import totalSumSelector from '../selectors/totalCalc';
 
 export default React.createClass({
     PropTypes: {
@@ -24,7 +25,7 @@ export default React.createClass({
                         key={chosenProduct.lineId}
                         lineId={chosenProduct.lineId}
                         products={category.availableProducts}
-                        selectedProductId={chosenProduct.id}/>
+                        selectedProductId={chosenProduct.productId}/>
           ));
 
         return (
@@ -52,9 +53,26 @@ export default React.createClass({
         return _.map(categories, this.renderCategoryLine);
     },
 
+    renderTotal() {
+        let totalPrice = totalSumSelector({
+            products: this.props.products,
+            chosenProducts: this.props.chosenProducts
+        });
+
+        return (
+            <div className="categoryLine">
+                <div className="title">Total</div>
+                <div>
+                    ${totalPrice}
+                </div>
+            </div>
+        );
+    },
+
     render() {
         return (
             <div className="specLinesBuilder">
+                {this.renderTotal()}
                 {this.renderCategories()}
             </div>
         );

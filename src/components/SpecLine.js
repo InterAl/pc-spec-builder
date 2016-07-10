@@ -8,11 +8,19 @@ export default React.createClass({
         lineId: React.PropTypes.number.isRequired,
         products: React.PropTypes.array.isRequired,
         selectedProductId: React.PropTypes.number,
-        dispatch: React.PropTypes.func.isRequired
+        dispatch: React.PropTypes.func.isRequired,
+        categoryId: React.PropTypes.number.isRequired
     },
 
     handleRemoveLine() {
         let payload = actions.deleteSpecLine(this.props.lineId);
+        this.props.dispatch(payload);
+    },
+
+    handleSelectProduct(event) {
+        let productId = event.target.value;
+        let payload = actions.selectProduct(productId,
+                                            this.props.lineId);
         this.props.dispatch(payload);
     },
 
@@ -21,12 +29,14 @@ export default React.createClass({
 
         let options = _.map(products, (p, idx) => {
             return (
-                <option key={idx} value={p.id}>{p.name}</option>
+                <option key={idx} value={p.id}>{p.name} - ${p.price}</option>
             );
         });
 
         return (
-            <select value={this.props.selectedProductId}>
+            <select onChange={this.handleSelectProduct}
+                    value={this.props.selectedProductId || -1}>
+                <option key={-1} value={-1}>Select a product</option>
                 {options}
             </select>
         );

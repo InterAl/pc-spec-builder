@@ -6,19 +6,22 @@ export default {
         name: "i7",
         categoryId: 1,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 100
     }, {
         id: 2,
         name: "i5",
         categoryId: 1,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 142
     }, {
         id: 3,
         name: "i7 4500",
         categoryId: 1,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 221
     },
     //GPU
     {
@@ -26,7 +29,8 @@ export default {
         name: "1080 GTX",
         categoryId: 2,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 310
     },
     //MEM
     {
@@ -34,7 +38,8 @@ export default {
         name: "16GB DDR 4",
         categoryId: 3,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 499
     },
     //Storage
     {
@@ -42,7 +47,8 @@ export default {
         name: "1TB WD 7200",
         categoryId: 4,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 610
     },
     //Case type
     {
@@ -50,7 +56,8 @@ export default {
         name: "ATX",
         categoryId: 6,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 201
     },
     //Optical drive
     {
@@ -58,7 +65,8 @@ export default {
         name: "Hitachi ODD",
         categoryId: 7,
         chipsetId: 1,
-        caseType: 1
+        caseType: 1,
+        price: 505
     }
 
     ],

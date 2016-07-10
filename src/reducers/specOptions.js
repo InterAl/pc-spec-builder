@@ -14,7 +14,6 @@ module.exports = function(state = initialState, action) {
             ...action.specOptions
         };
 
-        console.log("next state", nextState)
         return nextState;
     } break;
 

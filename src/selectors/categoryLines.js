@@ -6,12 +6,14 @@ export default createSelector(
     state => state.categories,
     state => state.chosenProducts,
     (products, categories, chosenProducts) => {
-        let categoryLines = _.reduce(categories, (acc, cat) => {
-            let chosenCategoryProducts =
-                _.filter(chosenProducts, p => p.categoryId === cat.id);
+        chosenProducts = _.map(chosenProducts, cp => ({
+            ...cp,
+            ..._.find(products, p => p.id === cp.productId)
+        }));
 
-            let productLines = chosenCategoryProducts.length > 0 ?
-                chosenCategoryProducts : [{categoryId: cat.id}];
+        let categoryLines = _.reduce(categories, (acc, cat) => {
+            let productLines =
+                _.filter(chosenProducts, p => p.categoryId === cat.id);
 
             let availableProducts =
                 _.filter(products, p => p.categoryId === cat.id);
