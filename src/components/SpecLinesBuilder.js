@@ -12,7 +12,8 @@ export default React.createClass({
         dispatch: React.PropTypes.func.isRequired,
         categories: React.PropTypes.array.isRequired,
         products: React.PropTypes.array.isRequired,
-        chosenProducts: React.PropTypes.array.isRequired
+        chosenProducts: React.PropTypes.array.isRequired,
+        sortBy: React.PropTypes.string.isRequired
     },
 
     handleAddLine(categoryId) {
@@ -47,7 +48,8 @@ export default React.createClass({
         let categories = categoryLinesSelector({
             products: this.props.products,
             categories: this.props.categories,
-            chosenProducts: this.props.chosenProducts
+            chosenProducts: this.props.chosenProducts,
+            sortBy: this.props.sortBy
         });
 
         return _.map(categories, this.renderCategoryLine);

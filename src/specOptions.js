@@ -4,31 +4,43 @@ export default {
     products: [
     //CPU
     {
-        id: 1,
+        id: "1",
         name: "i7",
+        manufacturer: "Intel",
         categoryId: 1,
         chipsetId: 1,
         caseType: 1,
         price: 100
     }, {
-        id: 2,
+        id: "2",
         name: "i5",
+        manufacturer: "Intel",
         categoryId: 1,
         chipsetId: 1,
         caseType: 1,
         price: 142
     }, {
-        id: 3,
+        id: "3",
         name: "i7 4500",
+        manufacturer: "Intel",
         categoryId: 1,
         chipsetId: 1,
         caseType: 1,
         price: 221
+    }, {
+        id: "18ja-zjc",
+        name: "Phenom 2",
+        manufacturer: "AMD",
+        categoryId: 1,
+        chipsetId: 1,
+        caseType: 1,
+        price: 184
     },
     //GPU
     {
-        id: 4,
+        id: "4",
         name: "1080 GTX",
+        manufacturer: "Nvidia",
         categoryId: 2,
         chipsetId: 1,
         caseType: 1,
@@ -36,8 +48,9 @@ export default {
     },
     //MEM
     {
-        id: 5,
+        id: "5",
         name: "16GB DDR 4",
+        manufacturer: "Corsair",
         categoryId: 3,
         chipsetId: 1,
         caseType: 1,
@@ -45,8 +58,9 @@ export default {
     },
     //Storage
     {
-        id: 6,
-        name: "1TB WD 7200",
+        id: "6",
+        name: "1TB 7200",
+        manufacturer: "WD",
         categoryId: 4,
         chipsetId: 1,
         caseType: 1,
@@ -54,7 +68,7 @@ export default {
     },
     //Case type
     {
-        id: 7,
+        id: "7",
         name: "ATX",
         categoryId: 6,
         chipsetId: 1,
@@ -63,7 +77,7 @@ export default {
     },
     //Optical drive
     {
-        id: 8,
+        id: "8",
         name: "Hitachi ODD",
         categoryId: 7,
         chipsetId: 1,

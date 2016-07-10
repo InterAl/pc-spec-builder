@@ -34,7 +34,9 @@ export default React.createClass({
 
         let options = _.map(products, (p, idx) => {
             return (
-                <option key={idx} value={p.id}>{p.name} - ${p.price}</option>
+                <option key={idx} value={p.id}>
+                    {p.manufacturer} - {p.name} - ${p.price}
+                </option>
             );
         });
 

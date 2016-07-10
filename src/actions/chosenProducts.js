@@ -30,7 +30,7 @@ export function deleteSpecLine(lineId) {
 export const SELECT_PRODUCT = 'SELECT_PRODUCT';
 
 export function selectProduct(productId, lineId) {
-    productId = Number(productId);
+    productId = productId;
 
     return {
         type: SELECT_PRODUCT,
