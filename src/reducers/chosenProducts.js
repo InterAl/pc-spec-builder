@@ -68,6 +68,7 @@ export default function(state = initialState, action) {
 function createLine(mixin) {
     return _.extend({
         lineId: guid(),
-        time: new Date()
+        time: new Date(),
+        quantity: 1
     }, mixin);
 }

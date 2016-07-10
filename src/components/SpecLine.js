@@ -5,22 +5,21 @@ import React from 'react';
 
 export default React.createClass({
     PropTypes: {
-        lineId: React.PropTypes.number.isRequired,
+        chosenProduct: React.PropTypes.object,
         products: React.PropTypes.array.isRequired,
-        selectedProductId: React.PropTypes.number,
         dispatch: React.PropTypes.func.isRequired,
         categoryId: React.PropTypes.number.isRequired
     },
 
     handleRemoveLine() {
-        let payload = actions.deleteSpecLine(this.props.lineId);
+        let payload = actions.deleteSpecLine(this.props.chosenProduct.lineId);
         this.props.dispatch(payload);
     },
 
     handleSelectProduct(event) {
         let productId = event.target.value;
         let payload = actions.selectProduct(productId,
-                                            this.props.lineId);
+                                            this.props.chosenProduct.lineId);
         this.props.dispatch(payload);
     },
 
@@ -35,7 +34,7 @@ export default React.createClass({
 
         return (
             <select onChange={this.handleSelectProduct}
-                    value={this.props.selectedProductId || -1}>
+                    value={this.props.chosenProduct.id || -1}>
                 <option key={-1} value={-1}>Select a product</option>
                 {options}
             </select>
@@ -45,7 +44,9 @@ export default React.createClass({
     renderQuantity() {
         return (
             <div className="quantity">
-                <input type="textbox" size={2} />
+                <input type="textbox"
+                       value={this.props.chosenProduct.quantity}
+                       size={2} />
             </div>
         );
     },

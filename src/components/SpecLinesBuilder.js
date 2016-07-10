@@ -23,9 +23,8 @@ export default React.createClass({
           (chosenProduct, idx) => (
               <SpecLine dispatch={this.props.dispatch}
                         key={chosenProduct.lineId}
-                        lineId={chosenProduct.lineId}
                         products={category.availableProducts}
-                        selectedProductId={chosenProduct.productId}/>
+                        chosenProduct={chosenProduct} />
           ));
 
         return (
