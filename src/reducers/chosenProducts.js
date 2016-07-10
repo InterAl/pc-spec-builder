@@ -64,7 +64,7 @@ export default function(state = initialState, action) {
 
         case CHANGE_PRODUCT_QUANTITY: {
             let line = _.find(state, l => l.lineId === action.lineId);
-            
+
             let nextLine = {
                 ...line,
                 quantity: action.quantity

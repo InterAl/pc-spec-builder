@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import * as actions from '../actions/chosenProducts';
 import SpecLine from './SpecLine';
+import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
 
@@ -68,9 +69,19 @@ export default React.createClass({
         );
     },
 
+    renderSortPicker() {
+        return (
+            <SortPicker 
+                dispatch={this.props.dispatch} 
+                sortBy={this.props.sortBy}
+            />
+        );
+    },
+
     render() {
         return (
             <div className="specLinesBuilder">
+                {this.renderSortPicker()}
                 {this.renderTotal()}
                 {this.renderCategories()}
             </div>

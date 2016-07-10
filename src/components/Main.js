@@ -13,6 +13,7 @@ class AppComponent extends React.Component {
                     categories={this.props.state.specOptions.categories}
                     products={this.props.state.specOptions.products}
                     chosenProducts={this.props.state.chosenProducts}
+                    sortBy={this.props.state.sortBy}
                 />
             </div>
         );
