@@ -74,6 +74,8 @@
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.3"
+    "reselect": "^2.5.3",
+    "tsv": "^0.2.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }
