@@ -28,7 +28,7 @@ export default React.createClass({
         if (systemId !== this.state.systemId) {
             let system = _.find(this.props.systems, s => s.id === systemId);
             let subsystem = _.first(system.subsystems);
-            subsystem && this.setState({ subsystem: subsystem.name });
+            this.setState({ subsystem: subsystem && subsystem.name });
         }
 
         this.setState({

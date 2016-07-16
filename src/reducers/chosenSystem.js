@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
         case CHOOSE_SYSTEM: {
             nextState = {
                 ...state,
-                system: action.system,
+                systemId: action.systemId,
                 subsystem: action.subsystem
             };
         }
