@@ -22,10 +22,18 @@ export default createSelector(
                    _.find(system.subsystems,
                           s => s.name === chosenSystem.subsystem).tags;
 
-        let tags = _(tagNames).map(t => _.find(allTags, (c, t2) => t2 === t)).compact().value();
-        let relevantCategories = _(tags).map(t => _.filter(categories, c => _.includes(t, c.name))).flatten().value();
+        let tags = _(tagNames)
+            .map(t => _.find(allTags, (c, t2) => t2 === t))
+            .compact()
+            .value();
 
-        let categoryLines = _.reduce(relevantCategories, (acc, cat) => {
+        let relevantCategories = _(tags)
+            .map(t => _.filter(categories, c => _.includes(t, c.name)))
+            .flatten()
+            .uniqBy(c => c.id)
+            .value();
+
+        let categoryLines = _.map(relevantCategories, cat => {
             let productLines = _(chosenProducts)
                 .filter(p => p.categoryId === cat.id)
                 .sortBy(p => p.time)
@@ -37,10 +45,8 @@ export default createSelector(
                 .sortBy(p => p[sortBy])
                 .value();
 
-            acc[cat.id] = {...cat, productLines, availableProducts};
-
-            return acc;
-        }, {});
+            return {...cat, productLines, availableProducts};
+        });
 
         return categoryLines;
 });
