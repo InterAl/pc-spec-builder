@@ -22,7 +22,7 @@ export default React.createClass({
             <div className="sortPicker">
                 <div>
                     <label>
-                        Sort by:
+                        סנן לפי:
                     </label>
                 </div>
                 <div>
@@ -31,7 +31,7 @@ export default React.createClass({
                            checked={this.props.sortBy === 'price'}
                            onChange={this.handleSortByPrice} />
                     <label>
-                        Price
+                        מחיר
                     </label>
                 </div>
                 <div>
@@ -40,7 +40,7 @@ export default React.createClass({
                            checked={this.props.sortBy === 'manufacturer'}
                            onChange={this.handleSortByManufacturer} />
                     <label>
-                        Manufacturer
+                        יצרן
                     </label>
                 </div>
             </div>

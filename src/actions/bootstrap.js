@@ -49,12 +49,16 @@ function plonterFileToSpecOptions(plonter) {
     }
 
     function extractTags(line) {
-        let lineTags = line.tree && line.tree.toString().split(" ");
-        _.each(lineTags, tag => {
-            tags[tag] = tags[tag] || [];
-            tags[tag].indexOf(line.division) === -1 && tags[tag].push(line.division);
-        });
-        return lineTags;
+        if (line.tree) {
+            line.tree = line.tree.toString().toLowerCase();
+            let lineTags = line.tree.toString().split(" ");
+            _.each(lineTags, tag => {
+                tags[tag] = tags[tag] || [];
+                tags[tag].indexOf(line.division) === -1 && tags[tag].push(line.division);
+            });
+
+            return lineTags;
+        }
     }
 
     function getSystems() {
@@ -130,7 +134,17 @@ function plonterFileToSpecOptions(plonter) {
             division: line.category,
             tags
         });
+
+        if (line.title && line.title.indexOf('Windows8.1') === 0)
+            console.log(products[products.length - 1]);
     }
 
-    return {products, categories, tags, systems: getSystems()};
+    let systems = getSystems();
+    _.each(systems, s => {
+        if (s.tags)
+            s.tags = _.map(s.tags, t => t.toLowerCase());
+        _.each(s.subsystems, sub => sub.tags = _.map(sub.tags, t => t.toLowerCase()));
+    });
+    let result = {products, categories, tags, systems};
+    return result;
 }

@@ -4,7 +4,9 @@ import {
     CHOOSE_SYSTEM
 } from '../actions/chosenSystem';
 
-const initialState = {};
+const initialState = {
+    systemId: 0
+};
 
 export default function(state = initialState, action) {
     let nextState = state;

@@ -11,8 +11,11 @@ export default React.createClass({
     PropTypes: {
         dispatch: React.PropTypes.func.isRequired,
         categories: React.PropTypes.array.isRequired,
+        systems: React.PropTypes.array.isRequired,
+        tags: React.PropTypes.array.isRequired,
         products: React.PropTypes.array.isRequired,
         chosenProducts: React.PropTypes.array.isRequired,
+        chosenSystem: React.PropTypes.array.isRequired,
         sortBy: React.PropTypes.string.isRequired
     },
 
@@ -45,13 +48,7 @@ export default React.createClass({
     },
 
     renderCategories() {
-        let categories = categoryLinesSelector({
-            products: this.props.products,
-            categories: this.props.categories,
-            chosenProducts: this.props.chosenProducts,
-            sortBy: this.props.sortBy
-        });
-
+        let categories = this.props.systems && categoryLinesSelector(this.props);
         return _.map(categories, this.renderCategoryLine);
     },
 
@@ -63,9 +60,9 @@ export default React.createClass({
 
         return (
             <div className="categoryLine">
-                <div className="title">Total</div>
+                <div className="title">סה״כ</div>
                 <div>
-                    ${totalPrice}
+                    ₪{totalPrice}
                 </div>
             </div>
         );
@@ -73,8 +70,8 @@ export default React.createClass({
 
     renderSortPicker() {
         return (
-            <SortPicker 
-                dispatch={this.props.dispatch} 
+            <SortPicker
+                dispatch={this.props.dispatch}
                 sortBy={this.props.sortBy}
             />
         );

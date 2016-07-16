@@ -16,8 +16,11 @@ class AppComponent extends React.Component {
                 <SpecLinesBuilder
                     dispatch={this.props.dispatch}
                     categories={this.props.state.specOptions.categories}
+                    systems={this.props.state.specOptions.systems}
+                    tags={this.props.state.specOptions.tags}
                     products={this.props.state.specOptions.products}
                     chosenProducts={this.props.state.chosenProducts}
+                    chosenSystem={this.props.state.chosenSystem}
                     sortBy={this.props.state.sortBy}
                 />
             </div>
