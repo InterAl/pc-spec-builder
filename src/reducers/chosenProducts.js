@@ -9,6 +9,10 @@ import {
     CHANGE_PRODUCT_QUANTITY
 } from '../actions/chosenProducts';
 
+import {
+    CHOOSE_SYSTEM
+} from '../actions/chosenSystem';
+
 const initialState = [];
 
 export default function(state = initialState, action) {
@@ -74,6 +78,10 @@ export default function(state = initialState, action) {
                          nextLine];
         }
         break;
+
+        case CHOOSE_SYSTEM: {
+            nextState = initialState;
+        }
     }
 
     return nextState;
