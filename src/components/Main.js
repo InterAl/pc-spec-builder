@@ -3,11 +3,16 @@ require('styles/App.css');
 import _ from 'lodash';
 import React from 'react';
 import SpecLinesBuilder from './SpecLinesBuilder';
+import SystemPicker from './SystemPicker';
 
 class AppComponent extends React.Component {
     render() {
         return (
             <div className="index">
+                <SystemPicker
+                    dispatch={this.props.dispatch}
+                    systems={this.props.state.specOptions.systems}
+                />
                 <SpecLinesBuilder
                     dispatch={this.props.dispatch}
                     categories={this.props.state.specOptions.categories}
