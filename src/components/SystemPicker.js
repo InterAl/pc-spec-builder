@@ -69,6 +69,7 @@ export default React.createClass({
     render() {
         return (
             <div className="systemPicker">
+                <div className="header">בחר סוג מערכת</div>
                 {_.map(this.props.systems, this.renderSystem)}
                 <button onClick={this.handleChooseSystem}
                         className='chooseBtn'>
