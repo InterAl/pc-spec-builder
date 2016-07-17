@@ -7,7 +7,7 @@ import tsv from 'tsv';
 
 export default function() {
     return dispatch => {
-        return fetch('specOptions3.tsv')
+        return fetch('public/specOptions3.tsv')
             .then(response => response.text())
             .then(parseFile)
             .then(plonterFileToSpecOptions)
