@@ -23,6 +23,21 @@
   "keywords": [],
   "author": "Your name here",
   "devDependencies": {
+  },
+  "dependencies": {
+    "core-js": "^2.0.0",
+    "lodash": "^4.13.1",
+    "normalize.css": "^4.0.0",
+    "q": "^1.4.1",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+    "reselect": "^2.5.3",
+    "tsv": "^0.2.0",
+    "whatwg-fetch": "^1.0.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.0.0",
@@ -62,20 +77,5 @@
     "webpack-dev-server": "^1.12.0",
     "less-loader": "^2.0.0",
     "less": "^2.5.3"
-  },
-  "dependencies": {
-    "core-js": "^2.0.0",
-    "lodash": "^4.13.1",
-    "normalize.css": "^4.0.0",
-    "q": "^1.4.1",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.3",
-    "tsv": "^0.2.0",
-    "whatwg-fetch": "^1.0.0"
   }
 }
