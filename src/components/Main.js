@@ -4,6 +4,7 @@ import _ from 'lodash';
 import React from 'react';
 import SpecLinesBuilder from './SpecLinesBuilder';
 import SystemPicker from './SystemPicker';
+import './Main.css';
 
 class AppComponent extends React.Component {
     render() {

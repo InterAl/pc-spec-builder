@@ -42,7 +42,10 @@ export default React.createClass({
 
         return (
             <select onChange={this.handleSelectProduct}
-                    value={this.props.chosenProduct.id || -1}>
+                    value={this.props.chosenProduct.id || -1}
+                    className="select col-md-10 pull-right"
+                    dir="ltr"
+            >
                 <option key={-1} value={-1}>בחר מוצר</option>
                 {options}
             </select>
@@ -51,19 +54,21 @@ export default React.createClass({
 
     renderQuantity() {
         return (
-            <div className="quantity">
-                <input type="textbox"
-                       onChange={this.handleQuantityChange}
-                       value={this.props.chosenProduct.quantity}
-                       size={2} />
+            <div className="quantity col-md-1 pull-right">
+                <span className="pull-right">
+                    <input type="textbox"
+                           onChange={this.handleQuantityChange}
+                           value={this.props.chosenProduct.quantity}
+                           size={2} />
+                </span>
             </div>
         );
     },
 
     renderRemove() {
         return (
-            <div className="removeLineBtn">
-                <button onClick={this.handleRemoveLine}>
+            <div className="removeLineBtn col-md-1 pull-right">
+                <button className="minusBtn" onClick={this.handleRemoveLine}>
                     -
                 </button>
             </div>
@@ -72,7 +77,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="specLine">
+            <div className="specLine row pull-right">
                 {this.renderDropdown()}
                 {this.renderQuantity()}
                 {this.renderRemove()}

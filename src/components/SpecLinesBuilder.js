@@ -33,23 +33,34 @@ export default React.createClass({
           ));
 
         return (
-            <div className="categoryLine" key={idx}>
-                <div className="title">{category.name}</div>
-                <div>
-                    {productComponents}
-                </div>
-                <div className="addLineBtn">
-                    <button onClick={() => this.handleAddLine(category.id)}>
-                        +
-                    </button>
-                </div>
+            <div className="categoryLine row" key={idx}>
+                    <div className="row">
+                        <div className="title col-md-3 pull-right">{category.name}</div>
+                        <div className="col-md-9 pull-right">
+                            {productComponents}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-5 pull-right"/>
+                        <div className="addLineBtn col-md-1 pull-right">
+                            <button onClick={() => this.handleAddLine(category.id)}>
+                                +
+                            </button>
+                        </div>
+                    </div>
             </div>
         );
     },
 
     renderCategories() {
         let categories = this.props.systems && categoryLinesSelector(this.props);
-        return _.map(categories, this.renderCategoryLine);
+        let lines = _.map(categories, this.renderCategoryLine);
+
+        return (
+            <div className="categories">
+                {lines}
+            </div>
+        );
     },
 
     renderTotal() {
