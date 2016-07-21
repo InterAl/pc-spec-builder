@@ -90,7 +90,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="specLinesBuilder">
+            <div className="specLinesBuilder container">
                 {this.renderSortPicker()}
                 {this.renderTotal()}
                 {this.renderCategories()}

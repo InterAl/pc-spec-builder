@@ -22,7 +22,7 @@ export default React.createClass({
             <div className="sortPicker">
                 <div>
                     <label>
-                        סנן לפי:
+                        מיין לפי:
                     </label>
                 </div>
                 <div>
