@@ -80,7 +80,7 @@ export default React.createClass({
                     {_.map(this.props.systems, this.renderSystem)}
                 </div>
                 <button onClick={this.handleChooseSystem}
-                        className='chooseBtn'>
+                        className='chooseBtn btn'>
                     בחר
                 </button>
             </div>

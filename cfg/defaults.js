@@ -59,8 +59,15 @@ function getDefaultModules() {
       {
           test: /\.eot$/,
           loader: "file-loader"
+      },
+      {
+          test: /\.json$/,
+          loader: "json-loader"
       }
-    ]
+    ],
+    node: {
+      fs: "empty"
+    }
   };
 }
 
