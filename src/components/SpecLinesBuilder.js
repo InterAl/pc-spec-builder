@@ -35,7 +35,9 @@ export default React.createClass({
         return (
             <div className="categoryLine row" key={idx}>
                     <div className="row">
-                        <div className="title col-md-3 pull-right">{category.name}</div>
+                        <div className="col-md-3 pull-right">
+                            <span className="title">{category.name}</span>
+                        </div>
                         <div className="col-md-9 pull-right">
                             {productComponents}
                         </div>
@@ -72,7 +74,7 @@ export default React.createClass({
         return (
             <div className="categoryLine">
                 <div className="title">סה״כ</div>
-                <div>
+                <div className="title">
                     ₪{totalPrice}
                 </div>
             </div>
@@ -90,7 +92,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="specLinesBuilder container">
+            <div className="specLinesBuilder">
                 {this.renderSortPicker()}
                 {this.renderTotal()}
                 {this.renderCategories()}

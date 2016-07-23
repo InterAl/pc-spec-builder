@@ -43,7 +43,7 @@ export default React.createClass({
         return (
             <select onChange={this.handleSelectProduct}
                     value={this.props.chosenProduct.id || -1}
-                    className="select col-md-10 pull-right"
+                    className="col-md-7 pull-right"
                     dir="ltr"
             >
                 <option key={-1} value={-1}>בחר מוצר</option>
@@ -67,7 +67,7 @@ export default React.createClass({
 
     renderRemove() {
         return (
-            <div className="removeLineBtn col-md-1 pull-right">
+            <div className="removeLineBtn col-md-4 pull-right">
                 <button className="minusBtn" onClick={this.handleRemoveLine}>
                     -
                 </button>
@@ -77,7 +77,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="specLine row pull-right">
+            <div className="specLine row">
                 {this.renderDropdown()}
                 {this.renderQuantity()}
                 {this.renderRemove()}

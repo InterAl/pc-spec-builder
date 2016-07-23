@@ -74,7 +74,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="systemPicker container">
+            <div className="systemPicker">
                 <div className="header">בחר סוג מערכת</div>
                 <div className="systems">
                     {_.map(this.props.systems, this.renderSystem)}
