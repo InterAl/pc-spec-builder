@@ -2,26 +2,33 @@
     display: flex;
     flex-direction: column;
     background-color: #707070;
-    width: 500px;
     margin: 5px;
     padding: 10px;
 
-    .systemLine {
-        display: flex;
-        margin-top: 5px;
+    .systems {
+        margin-bottom: 10px;
 
-        input {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
+        .systemLine {
+            display: flex;
+            margin-top: 5px;
+            border-bottom: 1px solid;
 
-        .systemName {
-            width: 250px;
+            input {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+            .subsystem {
+                .subsystem-inner {
+                    margin-right: 5px;
+                }
+            }
         }
     }
 
     .chooseBtn {
         padding: 15px;
+        color: black;
     }
 
     .header {

@@ -42,26 +42,32 @@ export default React.createClass({
 
     renderSystem(system, idx) {
         let subsystems = _.map(system.subsystems, (subsystem, idx) => (
-            <div key={`subsystem#${subsystem.name}#${idx}`}>
-                <input onChange={() => this.handleClickSubsystem(system.id,
+            <span className='subsystem' key={`subsystem#${subsystem.name}#${idx}`}>
+                <span className='subsystem-inner pull-right'>
+                    <input onChange={() => this.handleClickSubsystem(system.id,
                                                                  subsystem.name)}
-                       checked={subsystem.name === this.state.subsystem &&
-                                system.id === this.state.systemId}
-                       type='radio'
-                       name={`subsystem#${system.name}`} />
-                {subsystem.name}
-            </div>
+                           checked={subsystem.name === this.state.subsystem &&
+                                    system.id === this.state.systemId}
+                           type='radio'
+                           name={`subsystem#${system.name}`} />
+                    {subsystem.name}
+                </span>
+            </span>
         ));
 
         return (
-            <div className='systemLine' key={idx}>
-                <input
-                    onChange={() => this.handleClickSystem(system.id)}
-                    checked={system.id === this.state.systemId}
-                    type='radio'
-                    name='system' />
-                <div className='systemName'>{system.name}</div>
-                {subsystems}
+            <div className='systemLine row' key={idx}>
+                <span className='col-md-7 pull-right'>
+                    <input
+                        onChange={() => this.handleClickSystem(system.id)}
+                        checked={system.id === this.state.systemId}
+                        type='radio'
+                        name='system' />
+                    <span className='systemName'>{system.name}</span>
+                </span>
+                <span className='col-md-11 pull-right'>
+                    {subsystems}
+                </span>
             </div>
         );
     },
@@ -70,9 +76,11 @@ export default React.createClass({
         return (
             <div className="systemPicker">
                 <div className="header">בחר סוג מערכת</div>
-                {_.map(this.props.systems, this.renderSystem)}
+                <div className="systems">
+                    {_.map(this.props.systems, this.renderSystem)}
+                </div>
                 <button onClick={this.handleChooseSystem}
-                        className='chooseBtn'>
+                        className='chooseBtn btn'>
                     בחר
                 </button>
             </div>

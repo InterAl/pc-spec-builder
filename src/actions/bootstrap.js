@@ -4,11 +4,20 @@ import 'whatwg-fetch';
 import {setSpecOptions} from '../actions/setSpecOptions';
 import systemOptions from '../systemOptions';
 import tsv from 'tsv';
+import textEncoding from 'text-encoding';
+
+const {TextDecoder} = textEncoding;
 
 export default function() {
     return dispatch => {
-        return fetch('public/specOptions3.tsv')
-            .then(response => response.text())
+        return fetch('http://www.plonter.co.il/pnp/alon.tmpl')
+            .then(response => {
+               return response.arrayBuffer();
+            })
+            .then(buf => {
+                let text = new TextDecoder("windows-1255").decode(buf);
+                return text;
+            })
             .then(parseFile)
             .then(plonterFileToSpecOptions)
             .then(specOptions => dispatch(setSpecOptions(specOptions)));
