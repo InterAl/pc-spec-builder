@@ -2,7 +2,8 @@ import _ from 'lodash';
 
 import {
     SORT_BY_PRICE,
-    SORT_BY_MANUFACTURER
+    SORT_BY_MANUFACTURER,
+    SORT_BY_POPULARITY
 } from '../actions/sortBy';
 
 const initialState = 'price';
@@ -18,6 +19,11 @@ export default function(state = initialState, action) {
 
         case SORT_BY_MANUFACTURER: {
             nextState = 'manufacturer';
+        }
+        break;
+
+        case SORT_BY_POPULARITY: {
+            nextState = 'popularity';
         }
         break;
     }

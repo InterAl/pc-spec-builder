@@ -17,6 +17,10 @@ export default React.createClass({
         this.props.dispatch(actions.sortByManufacturer());
     },
 
+    handleSortByPopularity() {
+        this.props.dispatch(actions.sortByPopularity());
+    },
+
     render() {
         return (
             <div className="sortPicker">
@@ -41,6 +45,15 @@ export default React.createClass({
                            onChange={this.handleSortByManufacturer} />
                     <label>
                         יצרן
+                    </label>
+                </div>
+                <div>
+                    <input type="radio"
+                        name="sort"
+                        checked={this.props.sortBy === 'popularity'}
+                        onChange={this.handleSortByPopularity} />
+                    <label>
+                        הכי נמכר
                     </label>
                 </div>
             </div>

@@ -84,7 +84,8 @@ function plonterFileToSpecOptions(plonter) {
             categoryId,
             price: line.price_total,
             division: line.category,
-            tags
+            tags,
+            popularity: line.amount ? -line.amount : Infinity
         });
     }
 

@@ -13,3 +13,11 @@ export function sortByManufacturer() {
         type: SORT_BY_MANUFACTURER
     };
 }
+
+export const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
+
+export function sortByPopularity() {
+    return {
+        type: SORT_BY_POPULARITY
+    };
+}
