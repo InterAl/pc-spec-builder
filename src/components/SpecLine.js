@@ -52,6 +52,18 @@ export default React.createClass({
         );
     },
 
+    renderProductLink() {
+        let productWasChosen = this.props.chosenProduct.productId;
+        productWasChosen = !!productWasChosen && productWasChosen !== '-1';
+
+        return productWasChosen && (
+            <div className='link col-md-1 pull-right'>
+                <a href={`http://www.plonter.co.il/detail.tmpl?sku=${this.props.chosenProduct.productId}`}
+                    target='_blank'><img src='http://www.plonter.co.il/1inf.gif' /></a>
+            </div>
+        );
+    },
+
     renderQuantity() {
         return (
             <div className="quantity col-md-1 pull-right">
@@ -67,7 +79,7 @@ export default React.createClass({
 
     renderRemove() {
         return (
-            <div className="removeLineBtn col-md-4 pull-right">
+            <div className="removeLineBtn col-md-3 pull-right">
                 <button className="minusBtn" onClick={this.handleRemoveLine}>
                     -
                 </button>
@@ -80,6 +92,7 @@ export default React.createClass({
             <div className="specLine row">
                 {this.renderDropdown()}
                 {this.renderQuantity()}
+                {this.renderProductLink()}
                 {this.renderRemove()}
             </div>
         );
