@@ -35,7 +35,7 @@ export default React.createClass({
         let options = _.map(products, (p, idx) => {
             return (
                 <option key={idx} value={p.id}>
-                    {p.manufacturer} - {p.name} - ₪{p.price}
+                    ₪ (+{p.price}) - {p.manufacturer} - {p.name}
                 </option>
             );
         });
@@ -43,7 +43,7 @@ export default React.createClass({
         return (
             <select onChange={this.handleSelectProduct}
                     value={this.props.chosenProduct.id || -1}
-                    className="col-md-7 pull-right"
+                    className="select col-md-7 pull-right"
                     dir="ltr"
             >
                 <option key={-1} value={-1}>בחר מוצר</option>
