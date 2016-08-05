@@ -7,6 +7,7 @@ import SpecLine from './SpecLine';
 import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
+import numeral from 'numeral';
 
 export default class SpecLinesBuilder extends React.Component {
     constructor() {
@@ -86,12 +87,13 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderTotal() {
         let totalPrice = this.getTotalPrice();
+        let formattedTotal = numeral(totalPrice).format('0,0');
 
         return (
             <div className="categoryLine">
                 <div className="title">סה״כ</div>
                 <div className="title">
-                    ₪{totalPrice}
+                    ₪{formattedTotal}
                 </div>
             </div>
         );

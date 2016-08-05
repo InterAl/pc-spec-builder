@@ -61,6 +61,7 @@
     "mocha": "^2.2.5",
     "normalize.css": "^4.0.0",
     "null-loader": "^0.1.1",
+    "numeral": "^1.5.3",
     "open": "0.0.5",
     "phantomjs-prebuilt": "^2.0.0",
     "q": "^1.4.1",
