@@ -2,12 +2,20 @@ import './SpecLinesBuilder.less';
 import _ from 'lodash';
 import React from 'react';
 import * as actions from '../actions/chosenProducts';
+import proceedToOffer from '../actions/proceedToOffer';
 import SpecLine from './SpecLine';
 import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
 
-export default React.createClass({
+export default class SpecLinesBuilder extends React.Component {
+    constructor() {
+        super();
+        this.handleAddLine = this.handleAddLine.bind(this);
+        this.handleProceedToOffer = this.handleProceedToOffer.bind(this);
+        this.renderCategoryLine = this.renderCategoryLine.bind(this);
+    }
+
     PropTypes: {
         dispatch: React.PropTypes.func.isRequired,
         categories: React.PropTypes.array.isRequired,
@@ -17,11 +25,22 @@ export default React.createClass({
         chosenProducts: React.PropTypes.array.isRequired,
         chosenSystem: React.PropTypes.array.isRequired,
         sortBy: React.PropTypes.string.isRequired
-    },
+    }
 
     handleAddLine(categoryId) {
         this.props.dispatch(actions.addEmptySpecLine(categoryId));
-    },
+    }
+
+    handleProceedToOffer() {
+        this.props.dispatch(proceedToOffer());
+    }
+
+    getTotalPrice() {
+        return totalSumSelector({
+            products: this.props.products,
+            chosenProducts: this.props.chosenProducts
+        });
+    }
 
     renderCategoryLine(category, idx) {
         let productComponents = _.map(category.productLines,
@@ -52,7 +71,7 @@ export default React.createClass({
                     </div>
             </div>
         );
-    },
+    }
 
     renderCategories() {
         let categories = this.props.systems && categoryLinesSelector(this.props);
@@ -63,13 +82,10 @@ export default React.createClass({
                 {lines}
             </div>
         );
-    },
+    }
 
     renderTotal() {
-        let totalPrice = totalSumSelector({
-            products: this.props.products,
-            chosenProducts: this.props.chosenProducts
-        });
+        let totalPrice = this.getTotalPrice();
 
         return (
             <div className="categoryLine">
@@ -79,24 +95,43 @@ export default React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     renderSortPicker() {
         return (
-            <SortPicker
-                dispatch={this.props.dispatch}
-                sortBy={this.props.sortBy}
-            />
+            <div className='col-md-3 pull-right'>
+                <SortPicker
+                    dispatch={this.props.dispatch}
+                    sortBy={this.props.sortBy}
+                />
+            </div>
         );
-    },
+    }
+
+    renderProceedToOffer() {
+        return this.getTotalPrice() > 0 && (
+            <div className='offer control-row col-md-6 pull-right'>
+                <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
+            </div>
+        );
+    }
+
+    renderControls() {
+        return (
+            <div className='controls row'>
+                {this.renderSortPicker()}
+                {this.renderProceedToOffer()}
+            </div>
+        );
+    }
 
     render() {
         return (
             <div className="specLinesBuilder">
-                {this.renderSortPicker()}
+                {this.renderControls()}
                 {this.renderTotal()}
                 {this.renderCategories()}
             </div>
         );
     }
-});
+}

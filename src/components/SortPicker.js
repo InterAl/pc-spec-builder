@@ -23,7 +23,7 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="sortPicker">
+            <div className="sortPicker control-row">
                 <div>
                     <label>
                         מיין לפי:
