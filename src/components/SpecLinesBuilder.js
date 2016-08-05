@@ -54,16 +54,16 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="categoryLine row" key={idx}>
                     <div className="row">
-                        <div className="col-md-3 pull-right">
+                        <div className="col-xs-3 pull-right">
                             <span className="title">{category.name}</span>
                         </div>
-                        <div className="col-md-9 pull-right">
+                        <div className="col-xs-9 pull-right">
                             {productComponents}
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-5 pull-right"/>
-                        <div className="addLineBtn col-md-1 pull-right">
+                        <div className="col-xs-5 pull-right"/>
+                        <div className="addLineBtn col-xs-1 pull-right">
                             <button onClick={() => this.handleAddLine(category.id)}>
                                 +
                             </button>
@@ -99,7 +99,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderSortPicker() {
         return (
-            <div className='col-md-3 pull-right'>
+            <div className='col-md-3 col-sm-6 pull-right'>
                 <SortPicker
                     dispatch={this.props.dispatch}
                     sortBy={this.props.sortBy}
@@ -110,7 +110,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderProceedToOffer() {
         return this.getTotalPrice() > 0 && (
-            <div className='offer control-row col-md-6 pull-right'>
+            <div className='offer control-row col-xs-6 pull-right'>
                 <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
             </div>
         );
