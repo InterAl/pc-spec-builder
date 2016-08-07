@@ -5,7 +5,7 @@ export default function() {
     return (dispatch, getState) => {
         let plonterOffer = createPlonterOffer(getState());
 
-        submitForm('http://www.plonter.co.il/buildyourownpc2.tmpl', {
+        submitForm('http://www.plonter.co.il/buildyourownpcX2.tmpl', {
             method: 'POST',
             body: plonterOffer
         });
@@ -13,7 +13,8 @@ export default function() {
 }
 
 function createPlonterOffer(state) {
-    return _.map(state.chosenProducts, p => ({
-        [p.productId]: p.quantity
-    }));
+    return _.reduce(state.chosenProducts, (p, c) => ({
+        ...p,
+        [c.productId]: c.quantity
+    }), {});
 }
