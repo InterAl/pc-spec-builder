@@ -53,7 +53,7 @@ export default class SpecLinesBuilder extends React.Component {
           ));
 
         return (
-            <div className="categoryLine row" key={idx}>
+            <div className="categoryLine" key={idx}>
                     <div className="row">
                         <div className="col-xs-3 pull-right">
                             <span className="title">{category.name}</span>

@@ -13,8 +13,10 @@ export default function() {
 }
 
 function createPlonterOffer(state) {
-    return _.reduce(state.chosenProducts, (p, c) => ({
-        ...p,
-        [c.productId]: c.quantity
-    }), {});
+    return _(state.chosenProducts)
+                .filter(p => p.productId)
+                .reduce((p, c) => ({
+                    ...p,
+                    [c.productId]: c.quantity
+                }), {});
 }
