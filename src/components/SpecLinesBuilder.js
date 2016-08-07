@@ -55,17 +55,19 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="categoryLine" key={idx}>
                     <div className="row">
-                        <div className="col-xs-3 pull-right">
+                        <div className="col-md-1 col-xs-2 pull-right">
                             <span className="title">{category.name}</span>
                         </div>
-                        <div className="col-xs-9 pull-right">
+                        <div className="col-md-11 col-xs-10 pull-right">
                             {productComponents}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-xs-5 pull-right"/>
                         <div className="addLineBtn col-xs-1 pull-right">
-                            <button onClick={() => this.handleAddLine(category.id)}>
+                            <button onClick={() => this.handleAddLine(category.id)}
+                                    className="btn btn-default"
+                            >
                                 +
                             </button>
                         </div>

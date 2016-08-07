@@ -11,6 +11,7 @@ export default class SpecLine extends React.Component {
         this.handleRemoveLine = this.handleRemoveLine.bind(this);
         this.handleSelectProduct = this.handleSelectProduct.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
+        this.handleChangeSelect = this.handleChangeSelect.bind(this);
     }
 
     PropTypes: {
@@ -38,6 +39,13 @@ export default class SpecLine extends React.Component {
         payload && this.props.dispatch(payload);
     }
 
+    handleChangeSelect(value) {
+        if (value)
+            this.handleSelectProduct(value);
+        else
+            this.handleRemoveLine(value);
+    }
+
     renderDropdown() {
         let products = this.props.products;
 
@@ -51,11 +59,10 @@ export default class SpecLine extends React.Component {
         options.unshift({value: -1, label: 'בחר מוצר'});
 
         return (
-            <Select onChange={this.handleSelectProduct}
+            <Select onChange={this.handleChangeSelect}
                     value={this.props.chosenProduct.id || -1}
-                    className="select col-xs-7 pull-right"
+                    className="select col-xs-9 pull-right"
                     dir="ltr"
-                    clearable={false}
                     options={options}
                     name='lalala'
                 />
@@ -79,20 +86,11 @@ export default class SpecLine extends React.Component {
             <div className="quantity col-xs-1 pull-right">
                 <span className="pull-right">
                     <input type="textbox"
+                           className="input-xs"
                            onChange={this.handleQuantityChange}
                            value={this.props.chosenProduct.quantity}
-                           size={2} />
+                           size={1} />
                 </span>
-            </div>
-        );
-    }
-
-    renderRemove() {
-        return (
-            <div className="removeLineBtn col-xs-3 pull-right">
-                <button className="minusBtn" onClick={this.handleRemoveLine}>
-                    -
-                </button>
             </div>
         );
     }
@@ -103,7 +101,6 @@ export default class SpecLine extends React.Component {
                 {this.renderDropdown()}
                 {this.renderQuantity()}
                 {this.renderProductLink()}
-                {this.renderRemove()}
             </div>
         );
     }

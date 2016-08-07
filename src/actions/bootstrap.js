@@ -10,7 +10,7 @@ const {TextDecoder} = textEncoding;
 
 export default function() {
     return dispatch => {
-        return fetch('http://www.plonter.co.il/pnp/alon.tmpl')
+        return fetch('specOptions.tsv')
             .then(response => {
                return response.arrayBuffer();
             })
