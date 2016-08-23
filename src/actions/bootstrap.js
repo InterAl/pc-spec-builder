@@ -5,12 +5,13 @@ import {setSpecOptions} from '../actions/setSpecOptions';
 import systemOptions from '../systemOptions';
 import tsv from 'tsv';
 import textEncoding from 'text-encoding';
+import config from 'config';
 
 const {TextDecoder} = textEncoding;
 
 export default function() {
     return dispatch => {
-        return fetch('specOptions.tsv')
+        return fetch(config.productsApiUrl)
             .then(response => {
                return response.arrayBuffer();
             })

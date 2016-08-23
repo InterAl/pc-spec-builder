@@ -3,7 +3,7 @@
 import baseConfig from './base';
 
 let config = {
-  appEnv: 'dev'  // feel free to remove the appEnv property here
+  productsApiUrl: 'specOptions.tsv'
 };
 
 export default Object.freeze(Object.assign({}, baseConfig, config));
