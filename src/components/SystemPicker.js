@@ -3,18 +3,24 @@ import React from 'react';
 import * as actions from '../actions/chosenSystem';
 import './SystemPicker.less';
 
-export default React.createClass({
-    PropTypes: {
+export default class SystemPicker extends React.Component {
+    static PropTypes = {
         dispatch: React.PropTypes.func.isRequired,
         systems: React.PropTypes.object.isRequired
-    },
+    }
 
-    getInitialState() {
-        return {
+    constructor() {
+        super();
+        this.state = {
             systemId: null,
             subsystem: null
         };
-    },
+
+        this.handleChooseSystem = this.handleChooseSystem.bind(this);
+        this.handleClickSystem = this.handleClickSystem.bind(this);
+        this.handleClickSubsystem = this.handleClickSubsystem.bind(this);
+        this.renderSystem = this.renderSystem.bind(this);
+    }
 
     handleChooseSystem() {
         let {systemId, subsystem} = this.state;
@@ -22,7 +28,7 @@ export default React.createClass({
         if (systemId) {
             this.props.dispatch(actions.chooseSystem(systemId, subsystem));
         }
-    },
+    }
 
     handleClickSystem(systemId) {
         if (systemId !== this.state.systemId) {
@@ -34,11 +40,11 @@ export default React.createClass({
         this.setState({
             systemId
         });
-    },
+    }
 
     handleClickSubsystem(systemId, subsystem) {
         this.state.systemId === systemId && this.setState({subsystem});
-    },
+    }
 
     renderSystem(system, idx) {
         let subsystems = _.map(system.subsystems, (subsystem, idx) => (
@@ -57,7 +63,7 @@ export default React.createClass({
 
         return (
             <div className='systemLine row' key={idx}>
-                <span className='col-md-7 pull-right'>
+                <span className='col-md-4 pull-right systemName'>
                     <input
                         onChange={() => this.handleClickSystem(system.id)}
                         checked={system.id === this.state.systemId}
@@ -65,12 +71,12 @@ export default React.createClass({
                         name='system' />
                     <span className='systemName'>{system.name}</span>
                 </span>
-                <span className='col-md-11 pull-right'>
+                <span className='col-md-8 pull-right subSystems'>
                     {subsystems}
                 </span>
             </div>
         );
-    },
+    }
 
     render() {
         return (
@@ -86,4 +92,4 @@ export default React.createClass({
             </div>
         );
     }
-});
+}

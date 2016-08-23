@@ -1,6 +1,4 @@
 .systemPicker {
-    display: flex;
-    flex-direction: column;
     background-color: #707070;
     margin: 5px;
     padding: 10px;
@@ -9,9 +7,12 @@
         margin-bottom: 10px;
 
         .systemLine {
-            display: flex;
             margin-top: 5px;
             border-bottom: 1px solid;
+
+            .system-line-wrapper {
+                text-align: start;
+            }
 
             input {
                 margin-left: 5px;
@@ -27,6 +28,7 @@
     }
 
     .chooseBtn {
+        width: 100%;
     }
 
     .header {
