@@ -61,10 +61,9 @@ export default class SpecLine extends React.Component {
         return (
             <Select onChange={this.handleChangeSelect}
                     value={this.props.chosenProduct.id || -1}
-                    className="select col-xs-9 pull-right"
+                    className="select col-xs-10 pull-right"
                     dir="ltr"
                     options={options}
-                    name='lalala'
                 />
         );
     }

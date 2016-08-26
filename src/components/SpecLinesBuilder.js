@@ -63,13 +63,15 @@ export default class SpecLinesBuilder extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xs-5 pull-right"/>
-                        <div className="addLineBtn col-xs-1 pull-right">
-                            <button onClick={() => this.handleAddLine(category.id)}
-                                    className="btn btn-default"
-                            >
-                                +
-                            </button>
+                        <div className="col-xs-4 pull-right"/>
+                        <div className="addLineBtn col-xs-4 pull-right">
+                            <div className='btnWrapper'>
+                                <button onClick={() => this.handleAddLine(category.id)}
+                                        className="btn btn-default"
+                                >
+                                    +
+                                </button>
+                            </div>
                         </div>
                     </div>
             </div>
@@ -92,7 +94,7 @@ export default class SpecLinesBuilder extends React.Component {
         let formattedTotal = numeral(totalPrice).format('0,0');
 
         return (
-            <div className="categoryLine">
+            <div className="categoryLine total">
                 <div className="title">סה״כ</div>
                 <div className="title">
                     ₪{formattedTotal}
@@ -103,7 +105,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderSortPicker() {
         return (
-            <div className='col-md-3 col-sm-6 pull-right'>
+            <div className='col-md-4 col-xs-6 pull-right'>
                 <SortPicker
                     dispatch={this.props.dispatch}
                     sortBy={this.props.sortBy}
@@ -114,7 +116,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderProceedToOffer() {
         return this.getTotalPrice() > 0 && (
-            <div className='offer control-row col-xs-6 pull-right'>
+            <div className='offer control-row pull-right'>
                 <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
             </div>
         );

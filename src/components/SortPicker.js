@@ -23,13 +23,13 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="sortPicker control-row">
-                <div>
+            <div className="sortPicker control-row row">
+                <div className="col-xs-2 pull-right">
                     <span>
                         מיין לפי:
                     </span>
                 </div>
-                <div>
+                <div className="col-xs-3 pull-right">
                     <input type="radio"
                            name="sort"
                            checked={this.props.sortBy === 'price'}
@@ -38,7 +38,7 @@ export default React.createClass({
                         מחיר
                     </span>
                 </div>
-                <div>
+                <div className="col-xs-3 pull-right">
                     <input type="radio"
                            name="sort"
                            checked={this.props.sortBy === 'manufacturer'}
@@ -47,7 +47,7 @@ export default React.createClass({
                         יצרן
                     </span>
                 </div>
-                <div>
+                <div className="col-xs-4 pull-right">
                     <input type="radio"
                         name="sort"
                         checked={this.props.sortBy === 'popularity'}
