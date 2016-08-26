@@ -5,7 +5,8 @@ import {
 } from '../actions/chosenSystem';
 
 const initialState = {
-    systemId: 0
+    systemId: 3,
+    subsystem: 'ATX'
 };
 
 export default function(state = initialState, action) {

@@ -6,14 +6,17 @@ import './SystemPicker.less';
 export default class SystemPicker extends React.Component {
     static PropTypes = {
         dispatch: React.PropTypes.func.isRequired,
-        systems: React.PropTypes.object.isRequired
+        systems: React.PropTypes.object.isRequired,
+        systemId: React.PropTypes.number.isRequired,
+        subsystem: React.PropTypes.string
     }
 
-    constructor() {
+    constructor(props) {
         super();
+
         this.state = {
-            systemId: null,
-            subsystem: null
+            systemId: props.systemId,
+            subsystem: props.subsystem
         };
 
         this.handleChooseSystem = this.handleChooseSystem.bind(this);

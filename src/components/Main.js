@@ -13,6 +13,8 @@ class AppComponent extends React.Component {
                 <SystemPicker
                     dispatch={this.props.dispatch}
                     systems={this.props.state.specOptions.systems}
+                    systemId={this.props.state.chosenSystem.systemId}
+                    subsystem={this.props.state.chosenSystem.subsystem}
                 />
                 <SpecLinesBuilder
                     dispatch={this.props.dispatch}
