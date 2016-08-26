@@ -25,7 +25,8 @@ module.exports = {
     hot: true,
     port: defaultSettings.port,
     publicPath: defaultSettings.publicPath,
-    noInfo: false
+    noInfo: false,
+    headers: {"Access-Control-Allow-Origin": "*"}
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
