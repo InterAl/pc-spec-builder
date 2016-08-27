@@ -3,6 +3,7 @@ import './SpecLine.less';
 import _ from 'lodash';
 import React from 'react';
 import Select from 'react-select';
+import numeral from 'numeral';
 import 'react-select/dist/react-select.css';
 
 export default class SpecLine extends React.Component {
@@ -52,7 +53,7 @@ export default class SpecLine extends React.Component {
         let options = _.map(products, (p, idx) => {
             return {
                 value: p.id,
-                label: `₪ (+${p.price}) - ${p.manufacturer} - ${p.id} - ${p.name}`
+                label: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`
             };
         });
 
