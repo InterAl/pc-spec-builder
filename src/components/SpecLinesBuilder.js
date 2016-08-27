@@ -105,7 +105,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderSortPicker() {
         return (
-            <div className='col-md-4 col-xs-6 pull-right'>
+            <div className='col-md-4 col-xs-12 pull-right'>
                 <SortPicker
                     dispatch={this.props.dispatch}
                     sortBy={this.props.sortBy}

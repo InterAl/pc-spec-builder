@@ -57,6 +57,11 @@ export default class SystemPicker extends React.Component {
         };
     }
 
+    isDirty() {
+        return this.state.systemId !== this.props.systemId ||
+               this.state.subsystem !== this.props.subsystem;
+    }
+
     renderSubsystems() {
         const {subsystems, system} = this.getSubsystems();
 
@@ -70,7 +75,7 @@ export default class SystemPicker extends React.Component {
                 subsystem => this.handleClickSubsystem(system.id, subsystem)
             }
                     value={this.state.subsystem}
-                    className="select col-xs-10 pull-right"
+                    className="select col-sm-10 pull-right system"
                     clearable={false}
                     dir="ltr"
                     options={options}
@@ -87,7 +92,7 @@ export default class SystemPicker extends React.Component {
         return (
             <Select onChange={({value}) => this.handleClickSystem(value)}
                     value={this.state.systemId}
-                    className="select col-xs-10 pull-right system"
+                    className="select col-sm-10 pull-right system"
                     clearable={false}
                     dir="ltr"
                     options={options}
@@ -99,24 +104,32 @@ export default class SystemPicker extends React.Component {
         return (
             <div className="systemPicker">
                 <div className="systems row">
-                    <div className="col-xs-6 pull-right">
-                        <div className="col-xs-2 pull-right">
+                    <div className="col-xs-12 col-sm-6 pull-right">
+                        <div className="col-xs-1 col-sm-2 pull-right">
                             סוג מערכת:
                         </div>
-                        <div className="col-xs-10 pull-right">
+                        <div className="col-xs-11 col-sm-10 pull-right">
                             {this.renderSystems()}
                         </div>
                     </div>
                     {_.get(this.getSubsystems(), 'subsystems.length') > 0 &&
-                    <div className="col-xs-3 pull-right">
+                    <div className="col-xs-10 offset-xs-1 col-sm-3 pull-right">
                         {this.renderSubsystems()}
                     </div>
                     }
                 </div>
-                <button onClick={this.handleChooseSystem}
-                        className='chooseBtn btn'>
-                    בחר
-                </button>
+                {this.isDirty() &&
+                    <div className='row'>
+                        <div className='col-xs-4 pull-right' />
+                        <div className='col-xs-12 col-md-4 pull-right'>
+                            <button onClick={this.handleChooseSystem}
+                                    className='chooseBtn btn'>
+                                בחר
+                            </button>
+                        </div>
+                        <div className='col-xs-4 pull-right' />
+                    </div>
+                }
             </div>
         );
     }
