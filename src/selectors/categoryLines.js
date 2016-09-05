@@ -22,6 +22,8 @@ export default createSelector(
                    _.find(system.subsystems,
                           s => s.name === chosenSystem.subsystem).tags;
 
+        tagNames = _.sortBy(tagNames, t => t);
+
         let tags = _(tagNames)
             .map(t => _.find(allTags, (c, t2) => t2 === t))
             .compact()
