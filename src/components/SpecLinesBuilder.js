@@ -55,20 +55,21 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="categoryLine" key={idx}>
                 <div className="row">
-                    <div className="col-xs-2 pull-right categoryNameRow">
-                        <span className="title">{category.name}</span>
+                    <div className="col-xs-1 pull-right category-image">
+                        <img src={`http://www.plonter.co.il/graphics/plonters/byopc/${category.engdivision}.png`} />
                     </div>
-                    <div className="col-xs-10 pull-right btnWrapper">
+                    <div className="col-xs-10 pull-right categoryNameRow">
                         <button onClick={() => this.handleAddLine(category.id)}
                                 className="btn btn-link"
                         >
-                            +
+                            +&nbsp;
+                            {category.name}
                         </button>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-11 col-xs-10 pull-right">
-                        {productComponents}
+                        <div className="row">
+                            <div className="col-md-12 col-xs-10 pull-right">
+                                {productComponents}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,14 +89,16 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderTotal() {
         let totalPrice = this.getTotalPrice();
+        let totalPriceCash = 0.98 * totalPrice;
         let formattedTotal = numeral(totalPrice).format('0,0');
+        let formattedTotalCash = numeral(totalPriceCash).format('0,0');
 
         return (
-            <div className="categoryLine total">
-                <div className="title">סה״כ</div>
-                <div className="title">
-                    ₪{formattedTotal}
-                </div>
+            <div className="categoryLine total col-md-3 pull-right">
+                <span className="title">סה״כ: </span>
+                <span className="title">
+                    ₪{formattedTotal + ' / ' + formattedTotalCash}
+                </span>
             </div>
         );
     }
@@ -123,6 +126,7 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className='controls row'>
                 {this.renderSortPicker()}
+                {this.renderTotal()}
                 {this.renderProceedToOffer()}
             </div>
         );
@@ -132,7 +136,6 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="specLinesBuilder">
                 {this.renderControls()}
-                {this.renderTotal()}
                 {this.renderCategories()}
             </div>
         );

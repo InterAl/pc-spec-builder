@@ -24,7 +24,7 @@ export default React.createClass({
     render() {
         return (
             <div className="sortPicker control-row row">
-                <div className="col-xs-2 pull-right">
+                <div className="col-xs-2 pull-right sort-by">
                     <span>
                         מיין לפי:
                     </span>

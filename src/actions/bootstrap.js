@@ -75,6 +75,7 @@ function plonterFileToSpecOptions(plonter) {
         let line = plonter[i];
         let categoryId = extractField(line, 'division', categories);
         let divisionId = extractField(line, 'category', divisions);
+        categories[categoryId].engdivision = categories[categoryId].engdivision || line.engdivision;
         let tags = extractTags(line);
 
         products.push({
