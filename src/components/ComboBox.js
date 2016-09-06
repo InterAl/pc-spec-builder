@@ -2,7 +2,22 @@ import _ from 'lodash';
 import React from 'react';
 import './ComboBox.less';
 
+const {PropTypes} = React;
+
 export default class ComboBox extends React.Component {
+    static propTypes = {
+        tabs: PropTypes.arrayOf(PropTypes.shape({
+            value: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired
+        })),
+        options: PropTypes.arrayOf(PropTypes.shape({
+            value: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired
+        })),
+        onChange: PropTypes.func.isRequired,
+        filter: PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props);
 
