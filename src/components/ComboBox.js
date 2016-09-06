@@ -16,12 +16,14 @@ export default class ComboBox extends React.Component {
             text: PropTypes.string.isRequired
         })),
         onChange: PropTypes.func.isRequired,
+        onTabChange: PropTypes.func,
         filter: PropTypes.func.isRequired,
         placeholder: PropTypes.string
     }
 
     static defaultProps = {
-        onChange: noop
+        onChange: noop,
+        onTabChange: noop
     }
 
     constructor(props) {
@@ -34,6 +36,7 @@ export default class ComboBox extends React.Component {
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionClick = this.handleOptionClick.bind(this);
+        this.handleTabClick = this.handleTabClick.bind(this);
     }
 
     handleSelectClick() {
@@ -48,6 +51,10 @@ export default class ComboBox extends React.Component {
         this.props.onChange(value);
         this.toggleSelect(false);
         this.setState({value: text});
+    }
+
+    handleTabClick({text, value}) {
+        this.props.onTabChange(value);
     }
 
     setValue(value) {
@@ -105,15 +112,16 @@ export default class ComboBox extends React.Component {
     renderTabpages() {
         return (
             <div className="comboBox-tabpages">
-                <div className="comboBox-tabpages-tab">
-                    Intel
-                </div>
-                <div className="comboBox-tabpages-tab">
-                    AMD
-                </div>
-                <div className="comboBox-tabpages-tab">
-                    ARM
-                </div>
+                {_.map(this.props.tabs, tab => {
+                    return (
+                        <div className="comboBox-tabpages-tab"
+                             key={tab.value}
+                             onClick={() => this.handleTabClick(tab)}
+                        >
+                            {tab.text}
+                        </div>
+                    );
+                })}
             </div>
         );
     }
