@@ -16,6 +16,7 @@
         border: 1px solid #707070;
 
         input {
+            text-align: left;
             background-color: transparent;
             color: black;
             width: 100%;
@@ -49,13 +50,14 @@
     }
 
     .comboBox-dropdown {
+        @dropdownMaxHeight: 600px;
         @tabsHeight: 30px;
         position: absolute;
         z-index: 999;
         top: 100%;
         margin-top: 2px;
         width: 100%;
-        height: 200px;
+        max-height: @dropdownMaxHeight;
         background-color: #fff;
         border: 1px solid #000;
         border-top: 0;
@@ -83,7 +85,7 @@
         }
 
         .comboBox-options {
-            height: calc(100% ~"-" @tabsHeight);
+            max-height: calc(@dropdownMaxHeight ~"-" @tabsHeight);
             overflow-y: auto;
 
             .comboBox-option {

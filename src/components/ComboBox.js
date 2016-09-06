@@ -3,6 +3,7 @@ import React from 'react';
 import './ComboBox.less';
 
 const {PropTypes} = React;
+const noop = _.noop;
 
 export default class ComboBox extends React.Component {
     static propTypes = {
@@ -15,17 +16,24 @@ export default class ComboBox extends React.Component {
             text: PropTypes.string.isRequired
         })),
         onChange: PropTypes.func.isRequired,
-        filter: PropTypes.func.isRequired
+        filter: PropTypes.func.isRequired,
+        placeholder: PropTypes.string
+    }
+
+    static defaultProps = {
+        onChange: noop
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            opened: false
+            opened: false,
+            value: props.placeholder
         };
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
+        this.handleOptionClick = this.handleOptionClick.bind(this);
     }
 
     handleSelectClick() {
@@ -36,10 +44,20 @@ export default class ComboBox extends React.Component {
         this.setState({opened});
     }
 
+    handleOptionClick({text, value}) {
+        this.props.onChange(value);
+        this.toggleSelect(false);
+        this.setState({value: text});
+    }
+
+    setValue(value) {
+        this.setState({value});
+    }
+
     renderSelect() {
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
-                <input type="text" />
+                <input value={this.state.value} type="text" />
                 {this.renderArrow()}
                 {this.renderClear()}
             </div>
@@ -70,42 +88,16 @@ export default class ComboBox extends React.Component {
     renderOptions() {
         return (
             <div className="comboBox-options">
-                <div className="comboBox-option">
-                    i5 4GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 8GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i3 2GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    i7 1GHZ 2MB
-                </div>
-                <div className="comboBox-option">
-                    LASTTTTTTTTTT
-                </div>
+                {_.map(this.props.options, option => {
+                    return (
+                        <div className="comboBox-option"
+                             key={option.value}
+                             onClick={() => this.handleOptionClick(option)}
+                        >
+                            {option.text}
+                        </div>
+                    );
+                })}
             </div>
         );
     }
