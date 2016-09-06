@@ -43,7 +43,7 @@ export default createSelector(
 
             let availableProducts = _(products)
                 .filter(p => p.categoryId === cat.id &&
-                             _.intersection(p.tags, tagNames).length > 0)
+                             _.some(p.tags, t => _.some(tagNames, tag => t.indexOf(tag) !== -1)))
                 .sortBy(p => p[sortBy])
                 .value();
 
