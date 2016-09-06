@@ -1,0 +1,99 @@
+.comboBox {
+    @selectColor: darkgray;
+    position: relative;
+    width: 500px;
+    height: 30px;
+    border: 1px solid;
+    background-color: @selectColor;
+
+    &:hover {
+        background-color: lighten(@selectColor, 5%);
+    }
+
+    .comboBox-select {
+        position: relative;
+        padding: 2px 25px 2px 25px;
+        border: 1px solid #707070;
+
+        input {
+            background-color: transparent;
+            width: 100%;
+            border: 0;
+            outline: none;
+            box-shadow: 0 0 0 0;
+        }
+
+        .comboBox-arrow {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            cursor: pointer;
+            margin-right: 10px;
+            border-style: solid;
+            border-color: red transparent transparent;
+            border-width: 5px 5px 5px 5px;
+            width: 0;
+            height: 0;
+        }
+
+        .comboBox-clear {
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+            color: red;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+    }
+
+    .comboBox-dropdown {
+        position: absolute;
+        z-index: 999;
+        top: 100%;
+        margin-top: 2px;
+        width: 100%;
+        height: 200px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-top: 0;
+
+        .comboBox-tabpages {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            height: 30px;
+            background-color: #eaeaea;
+
+            .comboBox-tabpages-tab {
+                @color: #707070;
+                flex: 1;
+                cursor: pointer;
+                text-align: center;
+                padding: 5px 10px 5px 10px;
+                background-color: @color;
+                margin-right: 2px;
+
+                &:hover {
+                    background-color: lighten(@color, 17%);
+                }
+            }
+        }
+
+        .comboBox-options {
+            height: calc(100% ~"-" 30px);
+            overflow-y: auto;
+
+            .comboBox-option {
+                color: black;
+                cursor: pointer;
+                padding: 2px 10px 2px 15px;
+                text-align: left;
+
+                &:hover {
+                    background-color: lighten(@selectColor, 25%);
+                }
+            }
+        }
+    }
+}
