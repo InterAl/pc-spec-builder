@@ -31,12 +31,14 @@ export default class ComboBox extends React.Component {
 
         this.state = {
             opened: false,
-            value: props.placeholder
+            value: props.placeholder,
+            options: props.options
         };
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionClick = this.handleOptionClick.bind(this);
         this.handleTabClick = this.handleTabClick.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
     }
 
     handleSelectClick() {
@@ -57,6 +59,11 @@ export default class ComboBox extends React.Component {
         this.props.onTabChange(value);
     }
 
+    handleTextChange({target: {value}}) {
+        let options = this.props.filter(value, this.props.options);
+        this.setState({options, value});
+    }
+
     setValue(value) {
         this.setState({value});
     }
@@ -64,7 +71,9 @@ export default class ComboBox extends React.Component {
     renderSelect() {
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
-                <input value={this.state.value} type="text" />
+                <input type="text"
+                       value={this.state.value}
+                       onChange={this.handleTextChange}/>
                 {this.renderArrow()}
                 {this.renderClear()}
             </div>
@@ -95,7 +104,7 @@ export default class ComboBox extends React.Component {
     renderOptions() {
         return (
             <div className="comboBox-options">
-                {_.map(this.props.options, option => {
+                {_.map(this.state.options, option => {
                     return (
                         <div className="comboBox-option"
                              key={option.value}
