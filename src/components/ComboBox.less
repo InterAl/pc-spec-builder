@@ -71,7 +71,7 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
-            height: @tabsHeight;
+            flex-wrap: wrap;
             background-color: #eaeaea;
 
             .comboBox-tabpages-tab {
@@ -82,6 +82,7 @@
                 padding: 5px 10px 5px 10px;
                 background-color: @color;
                 margin-right: 2px;
+                margin-bottom: 2px;
                 color: #fff;
 
                 &:hover {
