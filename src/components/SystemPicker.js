@@ -8,71 +8,76 @@ export default class SystemPicker extends React.Component {
     static PropTypes = {
         dispatch: React.PropTypes.func.isRequired,
         systems: React.PropTypes.object.isRequired,
-        systemId: React.PropTypes.number.isRequired,
+        systemName: React.PropTypes.number.isRequired,
         subsystem: React.PropTypes.string
     }
 
     constructor(props) {
         super();
 
-        this.state = {
-            systemId: props.systemId,
-            subsystem: props.subsystem
-        };
+        this.state = {};
 
         this.handleChooseSystem = this.handleChooseSystem.bind(this);
         this.handleClickSystem = this.handleClickSystem.bind(this);
         this.handleClickSubsystem = this.handleClickSubsystem.bind(this);
     }
 
-    handleChooseSystem() {
-        let {systemId, subsystem} = this.state;
-        this.props.dispatch(actions.chooseSystem(systemId, subsystem));
-    }
-
-    handleClickSystem(systemId) {
-        if (systemId !== this.state.systemId) {
-            let system = _.find(this.props.systems, s => s.id === systemId);
-            let subsystem = _.first(system.subsystems);
-            this.setState({ subsystem: subsystem && subsystem.name });
-        }
-
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            systemId
+            systemName: nextProps.systemName,
+            subsystem: nextProps.subsystem
         });
     }
 
-    handleClickSubsystem(systemId, subsystem) {
-        this.state.systemId === systemId &&
+    handleChooseSystem() {
+        let {systemName, subsystem} = this.state;
+        this.props.dispatch(actions.chooseSystem(systemName, subsystem));
+    }
+
+    handleClickSystem(systemName) {
+        if (systemName !== this.state.systemName) {
+            let system = _.find(this.props.systems, (s, name) => name === systemName);
+            let subsystemName = Object.keys(system.subsystems)[0];
+            let subsystem = system.subsystems[subsystemName];
+            this.setState({ subsystem: subsystem && subsystemName });
+        }
+
+        this.setState({
+            systemName
+        });
+    }
+
+    handleClickSubsystem(systemName, subsystem) {
+        this.state.systemName === systemName &&
         this.setState({subsystem: _.get(subsystem, 'value')});
     }
 
     getSubsystems() {
         let system = _.find(this.props.systems,
-                      s => s.id === this.state.systemId);
+                      (s, name) => name === this.state.systemName);
 
         return {
             subsystems: _.get(system, 'subsystems'),
-            system
+            systemName: this.state.systemName
         };
     }
 
     isDirty() {
-        return this.state.systemId !== this.props.systemId ||
+        return this.state.systemName !== this.props.systemName ||
                this.state.subsystem !== this.props.subsystem;
     }
 
     renderSubsystems() {
-        const {subsystems, system} = this.getSubsystems();
+        const {subsystems, systemName} = this.getSubsystems();
 
-        const options = _.map(subsystems, (subsystem, idx) => ({
-            value: subsystem.name,
-            label: subsystem.name
+        const options = _.map(subsystems, (subsystem, subsystemName) => ({
+            value: subsystemName,
+            label: subsystemName
         }));
 
         return (
             <Select onChange={
-                subsystem => this.handleClickSubsystem(system.id, subsystem)
+                subsystem => this.handleClickSubsystem(systemName, subsystem)
             }
                     value={this.state.subsystem}
                     className="select col-sm-10 pull-right system"
@@ -84,14 +89,14 @@ export default class SystemPicker extends React.Component {
     }
 
     renderSystems() {
-        const options = _.map(this.props.systems, (system, idx) => ({
-            value: system.id,
-            label: system.name
+        const options = _.map(this.props.systems, (system, name) => ({
+            value: name,
+            label: name
         }));
 
         return (
             <Select onChange={({value}) => this.handleClickSystem(value)}
-                    value={this.state.systemId}
+                    value={this.state.systemName}
                     className="select col-sm-10 pull-right system"
                     clearable={false}
                     dir="ltr"
@@ -112,7 +117,7 @@ export default class SystemPicker extends React.Component {
                             {this.renderSystems()}
                         </div>
                     </div>
-                    {_.get(this.getSubsystems(), 'subsystems.length') > 0 &&
+                    {_.get(this.getSubsystems(), 'subsystems') &&
                     <div className="col-xs-10 offset-xs-1 col-sm-3 pull-right">
                         {this.renderSubsystems()}
                     </div>

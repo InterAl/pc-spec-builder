@@ -13,7 +13,7 @@ class AppComponent extends React.Component {
                 <SystemPicker
                     dispatch={this.props.dispatch}
                     systems={this.props.state.specOptions.systems}
-                    systemId={this.props.state.chosenSystem.systemId}
+                    systemName={this.props.state.chosenSystem.systemName}
                     subsystem={this.props.state.chosenSystem.subsystem}
                 />
                 <SpecLinesBuilder

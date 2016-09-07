@@ -4,9 +4,11 @@ import {
     CHOOSE_SYSTEM
 } from '../actions/chosenSystem';
 
+import {
+    SET_SPEC_OPTIONS
+} from '../actions/setSpecOptions';
+
 const initialState = {
-    systemId: 3,
-    subsystem: 'ATX'
 };
 
 export default function(state = initialState, action) {
@@ -16,8 +18,31 @@ export default function(state = initialState, action) {
         case CHOOSE_SYSTEM: {
             nextState = {
                 ...state,
-                systemId: action.systemId,
+                systemName: action.systemName,
                 subsystem: action.subsystem
+            };
+        }
+        break;
+        case SET_SPEC_OPTIONS: {
+            let systems = _.get(action, 'specOptions.systems');
+
+            let systemName;
+
+            _.each(systems, (s, name) => {
+                if (s.default) {
+                    systemName = name;
+                    return;
+                }
+            });
+
+            let subsystem = systemName &&
+                            systems[systemName].subsystems &&
+                            Object.keys(systems[systemName].subsystems)[0];
+
+            nextState = {
+                ...state,
+                systemName,
+                subsystem
             };
         }
         break;

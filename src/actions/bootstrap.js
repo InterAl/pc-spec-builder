@@ -92,12 +92,13 @@ function plonterFileToSpecOptions(plonter) {
         });
     }
 
-    _.each(systemOptions, s => {
+    _.each(systemOptions.systems, s => {
         if (s.tags)
             s.tags = _.map(s.tags, t => t.toLowerCase());
-        _.each(s.subsystems, sub => sub.tags = _.map(sub.tags, t => t.toLowerCase()));
+
+        _.each(s.subsystems, (sub, key) => s.subsystems[key] = _.map(sub, t => t.toLowerCase()));
     });
 
-    let result = {products, categories, tags, systems: systemOptions};
+    let result = {products, categories, tags, systems: systemOptions.systems};
     return result;
 }

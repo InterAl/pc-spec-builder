@@ -16,11 +16,11 @@ export default createSelector(
         }));
 
 
-        let system = systems[chosenSystem.systemId];
+        let system = systems[chosenSystem.systemName];
 
         let tagNames = system.tags ||
                    _.find(system.subsystems,
-                          s => s.name === chosenSystem.subsystem).tags;
+                          (s, subName) => subName === chosenSystem.subsystem);
 
         tagNames = _.sortBy(tagNames, t => t);
 
