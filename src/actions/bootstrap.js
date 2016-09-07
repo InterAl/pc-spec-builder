@@ -80,12 +80,13 @@ function plonterFileToSpecOptions(plonter) {
 
         products.push({
             id: line.sku,
-            name: line.title && line.title.substring(0, 85),
+            name: line.title,
             fullName: line.title,
             manufacturer: line.description,
             categoryId,
             price: line.price_total,
             division: line.category,
+            shelf: line.shelf,
             tags,
             popularity: line.amount ? -line.amount : Infinity
         });

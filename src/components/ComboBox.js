@@ -22,7 +22,9 @@ class ComboBox extends React.Component {
         onTabChange: PropTypes.func,
         onClear: PropTypes.func,
         filter: PropTypes.func.isRequired,
-        placeholder: PropTypes.string
+        placeholder: PropTypes.string,
+        className: PropTypes.string,
+        showRowCount: PropTypes.bool
     }
 
     static defaultProps = {
@@ -37,7 +39,8 @@ class ComboBox extends React.Component {
             opened: false,
             value: null,
             options: props.options,
-            selectedTab: null
+            selectedTab: null,
+            dirty: false
         };
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
@@ -45,6 +48,7 @@ class ComboBox extends React.Component {
         this.handleTabClick = this.handleTabClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.handleClear = this.handleClear.bind(this);
     }
 
     handleClickOutside() {
@@ -62,21 +66,24 @@ class ComboBox extends React.Component {
     handleOptionClick({text, value}) {
         this.props.onChange(value);
         this.toggleSelect(false);
-        this.setState({value: text});
+        this.setState({dirty: false, value: text});
     }
 
     handleTabClick({text, value}) {
-        if (value === this.state.tabValue) {
-            value = null;
+        let tabValue = value;
+
+        if (tabValue === this.state.tabValue) {
+            tabValue = null;
         }
 
-        this.selectTab(value);
-        this.invokeFilter({tabValue: value});
+        this.selectTab(tabValue);
+        this.invokeFilter({tabValue});
+        this.refs.input.focus();
     }
 
     handleTextChange({target: {value}}) {
         this.invokeFilter({value});
-        this.setState({value});
+        this.setState({dirty: true, value});
     }
 
     handleClear() {
@@ -92,15 +99,22 @@ class ComboBox extends React.Component {
     }
 
     invokeFilter({value = this.state.value, tabValue = this.state.tabValue}) {
+        value = this.state.dirty ? value : null;
         let options = this.props.filter(this.props.options, value, tabValue);
         this.setState({options});
+    }
+
+    getTextValue(value) {
+        return value === undefined || value === null ? this.props.placeholder : this.state.value;
     }
 
     renderSelect() {
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
                 <input type="text"
-                       value={this.state.value || this.props.placeholder}
+                       ref="input"
+                       value={this.getTextValue(this.state.value)}
+                       onFocus={()=>{this.refs.input.select()}}
                        onChange={this.handleTextChange}/>
                 {this.renderArrow()}
                 {this.props.onClear && this.renderClear()}
@@ -125,22 +139,35 @@ class ComboBox extends React.Component {
     renderDropdown() {
         return (
             <div className="comboBox-dropdown">
-                {this.renderTabpages()}
+                {this.props.tabs && this.renderTabpages()}
                 {this.renderOptions()}
             </div>
         );
     }
 
     renderOptions() {
+        let options = [...this.state.options];
+
+        if (this.props.showRowCount)
+            options.unshift({
+                text: `מציג ${options.length} מוצרים`,
+                unclickable: true
+            });
+
         return (
             <div className="comboBox-options">
-                {_.map(this.state.options, (option, idx) => {
+                {_.map(options, (option, idx) => {
                     return (
-                        <div className="comboBox-option"
+                       <div className={classNames("comboBox-option", {
+                           unclickable: option.unclickable
+                       })}
                              key={idx}
-                             onClick={() => this.handleOptionClick(option)}
+                             onClick={() => !option.unclickable &&
+                                            this.handleOptionClick(option)}
                         >
-                            {option.text}
+                            <span>
+                                {option.text}
+                            </span>
                         </div>
                     );
                 })}
@@ -169,17 +196,19 @@ class ComboBox extends React.Component {
 
     render() {
         return (
-            <div className='comboBox'>
+           <div className={classNames('comboBox', this.props.className, {
+               opened: this.state.opened
+           })}>
                 {this.renderSelect()}
-                <CSSTransitionGroup
-                    transitionName={'slideFoldAnimation'}
-                    transitionAppear={true}
-                    transitionAppearTimeout={0}
-                    transitionEnterTimeout={0}
-                    transitionLeaveTimeout={0}>
+                {/* <CSSTransitionGroup */}
+                {/*     transitionName={'slideFoldAnimation'} */}
+                {/*     transitionAppear={true} */}
+                {/*     transitionAppearTimeout={0} */}
+                {/*     transitionEnterTimeout={0} */}
+                {/*     transitionLeaveTimeout={0}> */}
 
                     {this.state.opened && this.renderDropdown()}
-                </CSSTransitionGroup>
+                {/* </CSSTransitionGroup> */}
             </div>
         );
     }

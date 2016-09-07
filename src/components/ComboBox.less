@@ -2,12 +2,17 @@
     @selectColor: white;
     position: relative;
     width: 500px;
-    height: 30px;
-    border: 1px solid;
     background-color: @selectColor;
 
     &:hover {
         background-color: lighten(@selectColor, 5%);
+    }
+
+    &.opened {
+        .comboBox-select .comboBox-arrow {
+            border-color: transparent transparent black transparent;
+            top: 30%;
+        }
     }
 
     .comboBox-select {
@@ -23,6 +28,7 @@
             border: 0;
             outline: none;
             box-shadow: 0 0 0 0;
+            text-overflow: ellipsis;
         }
 
         .comboBox-arrow {
@@ -32,7 +38,7 @@
             cursor: pointer;
             margin-right: 10px;
             border-style: solid;
-            border-color: red transparent transparent;
+            border-color: black transparent transparent;
             border-width: 5px 5px 5px 5px;
             width: 0;
             height: 0;
@@ -50,12 +56,11 @@
     }
 
     .comboBox-dropdown {
-        @dropdownMaxHeight: 600px;
+        @dropdownMaxHeight: 500px;
         @tabsHeight: 30px;
         position: absolute;
         z-index: 999;
         top: 100%;
-        margin-top: 2px;
         width: 100%;
         max-height: @dropdownMaxHeight;
         background-color: #fff;
@@ -77,6 +82,7 @@
                 padding: 5px 10px 5px 10px;
                 background-color: @color;
                 margin-right: 2px;
+                color: #fff;
 
                 &:hover {
                     background-color: lighten(@color, 17%);
@@ -97,6 +103,12 @@
                 cursor: pointer;
                 padding: 2px 10px 2px 15px;
                 text-align: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                &.unclickable {
+                    cursor: auto;
+                }
 
                 &:nth-child(even) {
                     @color: rgba(0, 0, 0, 0.05);

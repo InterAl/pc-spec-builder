@@ -3,6 +3,7 @@ import './SpecLine.less';
 import _ from 'lodash';
 import React from 'react';
 import Select from 'react-select';
+import ComboBox from './ComboBox';
 import numeral from 'numeral';
 import 'react-select/dist/react-select.css';
 
@@ -27,8 +28,7 @@ export default class SpecLine extends React.Component {
         this.props.dispatch(payload);
     }
 
-    handleSelectProduct(option) {
-        let productId = option.value;
+    handleSelectProduct(productId) {
         let payload = actions.selectProduct(productId,
                                             this.props.chosenProduct.lineId);
         this.props.dispatch(payload);
@@ -40,11 +40,27 @@ export default class SpecLine extends React.Component {
         payload && this.props.dispatch(payload);
     }
 
-    handleChangeSelect(value) {
-        if (value)
-            this.handleSelectProduct(value);
-        else
-            this.handleRemoveLine(value);
+    handleChangeSelect({id}) {
+        this.handleSelectProduct(id);
+    }
+
+    handleComboBoxFilter(options, value, tabValue) {
+        let words = (value || '').toLowerCase().split(' ');
+
+        return _.filter(options, option => {
+            return (_.isEmpty(words) ||
+                    _.every(words, word => _.includes(option.text.toLowerCase(), word))) &&
+                   (!option.value.shelf || !tabValue || option.value.shelf === tabValue);
+        });
+    }
+
+    getTabs(products) {
+        let tabs = _(products)
+                    .map('shelf')
+                    .uniq()
+                    .map(s => ({text: s, value: s}))
+                    .value();
+        return tabs;
     }
 
     renderDropdown() {
@@ -52,19 +68,21 @@ export default class SpecLine extends React.Component {
 
         let options = _.map(products, (p, idx) => {
             return {
-                value: p.id,
-                label: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`
+                value: p,
+                text: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`
             };
         });
 
-        options.unshift({value: -1, label: 'בחר מוצר'});
-
         return (
-            <Select onChange={this.handleChangeSelect}
-                    value={this.props.chosenProduct.id || -1}
-                    className="select col-xs-10 pull-right"
-                    dir="ltr"
-                    options={options}
+            <ComboBox onChange={this.handleChangeSelect}
+                      value={this.props.chosenProduct.id || -1}
+                      className="col-xs-10 pull-right"
+                      options={options}
+                      placeholder="בחר מוצר"
+                      onClear={this.handleRemoveLine}
+                      filter={this.handleComboBoxFilter}
+                      tabs={this.getTabs(products)}
+                      showRowCount={true}
                 />
         );
     }
