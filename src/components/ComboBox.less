@@ -118,4 +118,30 @@
             }
         }
     }
+
+    .slideFoldAnimation-enter {
+        opacity: 0;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+
+    .slideFoldAnimation-enter.slideFoldAnimation-enter-active {
+        opacity: 1;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        transition: all .2s ease-in-out;
+    }
+
+    .slideFoldAnimation-leave {
+        opacity: 1;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+
+    .slideFoldAnimation-leave.slideFoldAnimation-leave-active {
+        opacity: 0;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+        transition: all .2s ease-in-out;
+    }
 }

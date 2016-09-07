@@ -2,11 +2,13 @@ import _ from 'lodash';
 import React from 'react';
 import classNames from 'classnames';
 import './ComboBox.less';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
+import clickOutside from 'react-onclickoutside';
 
 const {PropTypes} = React;
 const noop = _.noop;
 
-export default class ComboBox extends React.Component {
+class ComboBox extends React.Component {
     static propTypes = {
         tabs: PropTypes.arrayOf(PropTypes.shape({
             value: PropTypes.string.isRequired,
@@ -18,6 +20,7 @@ export default class ComboBox extends React.Component {
         })),
         onChange: PropTypes.func.isRequired,
         onTabChange: PropTypes.func,
+        onClear: PropTypes.func,
         filter: PropTypes.func.isRequired,
         placeholder: PropTypes.string
     }
@@ -32,7 +35,7 @@ export default class ComboBox extends React.Component {
 
         this.state = {
             opened: false,
-            value: props.placeholder,
+            value: null,
             options: props.options,
             selectedTab: null
         };
@@ -41,6 +44,11 @@ export default class ComboBox extends React.Component {
         this.handleOptionClick = this.handleOptionClick.bind(this);
         this.handleTabClick = this.handleTabClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    handleClickOutside() {
+        this.toggleSelect(false);
     }
 
     handleSelectClick() {
@@ -71,6 +79,10 @@ export default class ComboBox extends React.Component {
         this.setState({value});
     }
 
+    handleClear() {
+        this.props.onClear();
+    }
+
     selectTab(tabValue) {
         this.setState({tabValue});
     }
@@ -88,10 +100,10 @@ export default class ComboBox extends React.Component {
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
                 <input type="text"
-                       value={this.state.value}
+                       value={this.state.value || this.props.placeholder}
                        onChange={this.handleTextChange}/>
                 {this.renderArrow()}
-                {this.renderClear()}
+                {this.props.onClear && this.renderClear()}
             </div>
         );
     }
@@ -104,7 +116,9 @@ export default class ComboBox extends React.Component {
 
     renderClear() {
         return (
-            <div className="comboBox-clear">×</div>
+            <div className="comboBox-clear" onClick={this.handleClear}>
+                ×
+            </div>
         );
     }
 
@@ -157,8 +171,18 @@ export default class ComboBox extends React.Component {
         return (
             <div className='comboBox'>
                 {this.renderSelect()}
-                {this.state.opened && this.renderDropdown()}
+                <CSSTransitionGroup
+                    transitionName={'slideFoldAnimation'}
+                    transitionAppear={true}
+                    transitionAppearTimeout={0}
+                    transitionEnterTimeout={0}
+                    transitionLeaveTimeout={0}>
+
+                    {this.state.opened && this.renderDropdown()}
+                </CSSTransitionGroup>
             </div>
         );
     }
 }
+
+export default clickOutside(ComboBox);
