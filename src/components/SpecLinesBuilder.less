@@ -1,4 +1,18 @@
 .specLinesBuilder {
+    &.fixed-header {
+        .controls.row {
+            position: fixed;
+            width: 100%;
+            max-width: 1115px;
+            z-index: 1;
+            top: 0;
+        }
+
+        .categories {
+            position: relative;
+            top: 35px;
+        }
+    }
 
     .categoryLine {
         margin: 1px;
@@ -82,6 +96,7 @@
         padding-bottom: 5px;
         line-height: 10px;
         background-color: #707070;
+
     }
 
     .total { 

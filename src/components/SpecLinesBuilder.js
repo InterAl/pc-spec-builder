@@ -8,6 +8,7 @@ import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
 import numeral from 'numeral';
+import $ from 'jquery';
 
 export default class SpecLinesBuilder extends React.Component {
     constructor() {
@@ -26,6 +27,28 @@ export default class SpecLinesBuilder extends React.Component {
         chosenProducts: React.PropTypes.array.isRequired,
         chosenSystem: React.PropTypes.array.isRequired,
         sortBy: React.PropTypes.string.isRequired
+    }
+
+    componentDidMount() {
+        this.originHeaderTop = $('.controls.row').offset().top;
+        this.fixHeaderPosition();
+    }
+
+    fixHeaderPosition() {
+        $(document).on("scroll", e => {
+            let docScrollTop = $(document).scrollTop();
+            let container = $('.specLinesBuilder');
+            let headerTop = $('.controls.row').offset().top;
+            let socialbar = $('.at4-follow-container.addthis_24x24_style');
+
+            if (docScrollTop > this.originHeaderTop) {
+                container.addClass('fixed-header');
+                socialbar.hide();
+            } else {
+                container.removeClass('fixed-header');
+                socialbar.show();
+            }
+        });
     }
 
     handleAddLine(categoryId) {
@@ -122,9 +145,9 @@ export default class SpecLinesBuilder extends React.Component {
         );
     }
 
-    renderControls() {
+    renderHeader() {
         return (
-            <div className='controls row'>
+            <div className='controls row' ref="header">
                 {this.renderSortPicker()}
                 {this.renderTotal()}
                 {this.renderProceedToOffer()}
@@ -135,7 +158,7 @@ export default class SpecLinesBuilder extends React.Component {
     render() {
         return (
             <div className="specLinesBuilder">
-                {this.renderControls()}
+                {this.renderHeader()}
                 {this.renderCategories()}
             </div>
         );
