@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import classNames from 'classnames';
 import './ComboBox.less';
 
 const {PropTypes} = React;
@@ -12,7 +13,7 @@ export default class ComboBox extends React.Component {
             text: PropTypes.string.isRequired
         })),
         options: PropTypes.arrayOf(PropTypes.shape({
-            value: PropTypes.string.isRequired,
+            value: PropTypes.any.isRequired,
             text: PropTypes.string.isRequired
         })),
         onChange: PropTypes.func.isRequired,
@@ -32,7 +33,8 @@ export default class ComboBox extends React.Component {
         this.state = {
             opened: false,
             value: props.placeholder,
-            options: props.options
+            options: props.options,
+            selectedTab: null
         };
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
@@ -56,16 +58,30 @@ export default class ComboBox extends React.Component {
     }
 
     handleTabClick({text, value}) {
-        this.props.onTabChange(value);
+        if (value === this.state.tabValue) {
+            value = null;
+        }
+
+        this.selectTab(value);
+        this.invokeFilter({tabValue: value});
     }
 
     handleTextChange({target: {value}}) {
-        let options = this.props.filter(value, this.props.options);
-        this.setState({options, value});
+        this.invokeFilter({value});
+        this.setState({value});
+    }
+
+    selectTab(tabValue) {
+        this.setState({tabValue});
     }
 
     setValue(value) {
         this.setState({value});
+    }
+
+    invokeFilter({value = this.state.value, tabValue = this.state.tabValue}) {
+        let options = this.props.filter(this.props.options, value, tabValue);
+        this.setState({options});
     }
 
     renderSelect() {
@@ -104,10 +120,10 @@ export default class ComboBox extends React.Component {
     renderOptions() {
         return (
             <div className="comboBox-options">
-                {_.map(this.state.options, option => {
+                {_.map(this.state.options, (option, idx) => {
                     return (
                         <div className="comboBox-option"
-                             key={option.value}
+                             key={idx}
                              onClick={() => this.handleOptionClick(option)}
                         >
                             {option.text}
@@ -121,10 +137,12 @@ export default class ComboBox extends React.Component {
     renderTabpages() {
         return (
             <div className="comboBox-tabpages">
-                {_.map(this.props.tabs, tab => {
+                {_.map(this.props.tabs, (tab, idx) => {
                     return (
-                        <div className="comboBox-tabpages-tab"
-                             key={tab.value}
+                       <div className={classNames("comboBox-tabpages-tab", {
+                           selected: this.state.tabValue === tab.value
+                       })}
+                             key={idx}
                              onClick={() => this.handleTabClick(tab)}
                         >
                             {tab.text}
