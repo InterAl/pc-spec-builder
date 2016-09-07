@@ -125,14 +125,12 @@ export default class SystemPicker extends React.Component {
                 </div>
                 {this.isDirty() &&
                     <div className='row'>
-                        <div className='col-xs-4 pull-right' />
-                        <div className='col-xs-12 col-md-4 pull-right'>
+                        <div className='col-xs-4 col-xs-offset-4 button-row'>
                             <button onClick={this.handleChooseSystem}
-                                    className='chooseBtn btn'>
-                                בחר
+                                    className='chooseBtn btn btn-link'>
+                                    שנה סוג מערכת
                             </button>
                         </div>
-                        <div className='col-xs-4 pull-right' />
                     </div>
                 }
             </div>

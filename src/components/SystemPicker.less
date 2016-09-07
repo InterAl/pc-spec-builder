@@ -1,5 +1,4 @@
 .systemPicker {
-    background-color: #707070;
     margin-bottom: 1px;
     margin-right: 0;
     padding: 10px;
@@ -12,11 +11,20 @@
         }
     }
 
+    .button-row {
+        text-align: center;
+    }
+
     .chooseBtn {
-        width: 100%;
+        text-align: center;
         font-size: 18px;
         font-weight: bold;
-        color: #707070;
+        color: #fffcbf;
+
+        &:hover {
+            color: #ccc;
+            text-decoration: none;
+        }
     }
 
     .btnWrapper {
@@ -27,6 +35,33 @@
     .Select-value {
         direction: ltr;
         padding-left: 20px !important;
+        background: linear-gradient(#555, #222);
+
+        .Select-value-label {
+            color: #fff !important;
+        }
+    }
+
+    .Select-control {
+        border-color: #555;
+    }
+
+    .Select-menu-outer .Select-menu {
+        background: linear-gradient(#333, #111);
+        text-align: left;
+    }
+
+    .Select-menu-outer {
+        border-color: #555;
+    }
+
+    .Select-option {
+        background: transparent;
+        color: #fff;
+
+        &:hover {
+            background: #444;
+        }
     }
 
     .Select-option {

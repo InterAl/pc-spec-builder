@@ -7,6 +7,7 @@ import SpecLine from './SpecLine';
 import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
+import SystemPicker from './SystemPicker';
 import numeral from 'numeral';
 import $ from 'jquery';
 
@@ -147,10 +148,19 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderHeader() {
         return (
-            <div className='controls row' ref="header">
-                {this.renderSortPicker()}
-                {this.renderTotal()}
-                {this.renderProceedToOffer()}
+            <div className='header'>
+                <SystemPicker
+                    dispatch={this.props.dispatch}
+                    systems={this.props.systems}
+                    systemName={this.props.chosenSystem.systemName}
+                    subsystem={this.props.chosenSystem.subsystem}
+                />
+
+                <div className='controls row' ref="header">
+                    {this.renderSortPicker()}
+                    {this.renderTotal()}
+                    {this.renderProceedToOffer()}
+                </div>
             </div>
         );
     }
