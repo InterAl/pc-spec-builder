@@ -120,7 +120,7 @@ export default class SpecLinesBuilder extends React.Component {
             <div className="categoryLine total col-md-3 pull-right">
                 <span className="title">סה״כ: </span>
                 <span className="title">
-                    ₪{formattedTotal + ' / ' + formattedTotalCash}
+                    {formattedTotal + ' / ₪' + formattedTotalCash}
                 </span>
             </div>
         );
