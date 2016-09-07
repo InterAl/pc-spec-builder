@@ -2,7 +2,6 @@ import _ from 'lodash';
 import Q from 'q';
 import 'whatwg-fetch';
 import {setSpecOptions} from '../actions/setSpecOptions';
-import systemOptions from '../systemOptions';
 import tsv from 'tsv';
 import textEncoding from 'text-encoding';
 import config from 'config';
@@ -11,33 +10,47 @@ const {TextDecoder} = textEncoding;
 
 export default function() {
     return dispatch => {
-        return fetch(config.productsApiUrl)
-            .then(response => {
-               return response.arrayBuffer();
+        return Q.all([fetch(config.productsApiUrl),
+                      fetch(config.systemsApiUrl)])
+            .spread((productsResponse, systemsResponse) => {
+                return Q.all([
+                    productsResponse.arrayBuffer(),
+                    systemsResponse.json()
+                ]);
             })
-            .then(buf => {
-                let text = new TextDecoder("windows-1255").decode(buf);
-                return text;
+            .spread((productsBuffer, systemsJson) => {
+                let productsTxt = new TextDecoder("windows-1255").decode(productsBuffer);
+
+                return {
+                    productsTxt,
+                    systemsJson
+                };
             })
             .then(parseFile)
             .then(plonterFileToSpecOptions)
-            .then(specOptions => dispatch(setSpecOptions(specOptions)));
+            .then(specOptions => dispatch(setSpecOptions(specOptions)))
+            .catch(err => console.error('failed bootstrapping', err));
     };
 }
 
-function parseFile(text) {
+function parseFile({productsTxt, systemsJson}) {
     let regex = new RegExp(/<pre>(.*?)<\/pre>/g);
     let tsvTxt = "";
-    let match = regex.exec(text);
+    let match = regex.exec(productsTxt);
     while (match != null) {
         tsvTxt += match[1] + "\n";
-        match = regex.exec(text);
+        match = regex.exec(productsTxt);
     }
     let tsvParsed = tsv.parse(tsvTxt);
-    return tsvParsed;
+
+
+    return {
+        plonterProducts: tsvParsed,
+        systems: systemsJson
+    };
 }
 
-function plonterFileToSpecOptions(plonter) {
+function plonterFileToSpecOptions({plonterProducts, systems}) {
     let products = [],
         categories = [],
         divisions = [],
@@ -71,8 +84,8 @@ function plonterFileToSpecOptions(plonter) {
         }
     }
 
-    for (let i=0; i < plonter.length; i++) {
-        let line = plonter[i];
+    for (let i=0; i < plonterProducts.length; i++) {
+        let line = plonterProducts[i];
         let categoryId = extractField(line, 'division', categories);
         let divisionId = extractField(line, 'category', divisions);
         categories[categoryId].engdivision = categories[categoryId].engdivision || line.engdivision;
@@ -92,13 +105,13 @@ function plonterFileToSpecOptions(plonter) {
         });
     }
 
-    _.each(systemOptions.systems, s => {
+    _.each(systems.systems, s => {
         if (s.tags)
             s.tags = _.map(s.tags, t => t.toLowerCase());
 
         _.each(s.subsystems, (sub, key) => s.subsystems[key] = _.map(sub, t => t.toLowerCase()));
     });
 
-    let result = {products, categories, tags, systems: systemOptions.systems};
+    let result = {products, categories, tags, systems: systems.systems};
     return result;
 }

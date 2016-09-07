@@ -26,14 +26,7 @@ export default function(state = initialState, action) {
         case SET_SPEC_OPTIONS: {
             let systems = _.get(action, 'specOptions.systems');
 
-            let systemName;
-
-            _.each(systems, (s, name) => {
-                if (s.default) {
-                    systemName = name;
-                    return;
-                }
-            });
+            let systemName = Object.keys(systems)[0];
 
             let subsystem = systemName &&
                             systems[systemName].subsystems &&

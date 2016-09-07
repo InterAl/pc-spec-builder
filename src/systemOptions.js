@@ -1,4 +1,4 @@
-export default {
+{
 	"systems": {
 		"Intel SkyLake LGA 1151 6th Gen": {
             "default": true,
@@ -46,4 +46,4 @@ export default {
 			}
 		}
 	}
-};
+}
