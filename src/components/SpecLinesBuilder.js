@@ -79,10 +79,10 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="categoryLine" key={idx}>
                 <div className="row">
-                    <div className="col-xs-1 pull-right category-image">
+                    <div className="col-xs-1 pull-right category-image hidden-xs">
                         <img src={`http://www.plonter.co.il/graphics/plonters/byopc/${category.engdivision}.png`} />
                     </div>
-                    <div className="col-xs-10 pull-right categoryNameRow">
+                    <div className="col-xs-12 col-md-10 pull-right categoryNameRow">
                         <button onClick={() => this.handleAddLine(category.id)}
                                 className="btn btn-link"
                         >
@@ -90,7 +90,7 @@ export default class SpecLinesBuilder extends React.Component {
                             {category.name}
                         </button>
                         <div className="row">
-                            <div className="col-md-12 col-xs-10 pull-right">
+                            <div className="col-md-12 col-xs-12 pull-right">
                                 {productComponents}
                             </div>
                         </div>
@@ -118,7 +118,7 @@ export default class SpecLinesBuilder extends React.Component {
         let formattedTotalCash = numeral(totalPriceCash).format('0,0');
 
         return (
-            <div className="categoryLine total col-md-3 pull-right">
+            <div className="categoryLine total col-xs-12 col-md-3 pull-right">
                 <span className="title">סה״כ: </span>
                 <span className="title">
                     {formattedTotal + ' / ₪' + formattedTotalCash}
@@ -140,7 +140,7 @@ export default class SpecLinesBuilder extends React.Component {
 
     renderProceedToOffer() {
         return this.getTotalPrice() > 0 && (
-            <div className='offer control-row pull-right'>
+            <div className='offer control-row pull-right col-xs-12 col-md-2'>
                 <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
             </div>
         );

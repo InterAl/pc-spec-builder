@@ -110,15 +110,15 @@ export default class SystemPicker extends React.Component {
             <div className="systemPicker">
                 <div className="systems row">
                     <div className="col-xs-12 col-sm-6 pull-right">
-                        <div className="col-xs-1 col-sm-2 pull-right">
+                        <div className="col-xs-12 col-sm-2 pull-right">
                             סוג מערכת:
                         </div>
-                        <div className="col-xs-11 col-sm-10 pull-right">
+                        <div className="col-xs-12 col-sm-10 pull-right">
                             {this.renderSystems()}
                         </div>
                     </div>
                     {_.get(this.getSubsystems(), 'subsystems') &&
-                    <div className="col-xs-10 offset-xs-1 col-sm-3 pull-right">
+                    <div className="col-xs-12 col-sm-3 pull-right">
                         {this.renderSubsystems()}
                     </div>
                     }
