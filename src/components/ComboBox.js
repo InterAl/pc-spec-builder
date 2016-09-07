@@ -32,6 +32,12 @@ class ComboBox extends React.Component {
         onTabChange: noop
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.options !== this.props.options) {
+            this.setState({options: nextProps.options});
+        }
+    }
+
     constructor(props) {
         super(props);
 
