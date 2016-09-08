@@ -2,16 +2,13 @@ import './SpecLinesBuilder.less';
 import _ from 'lodash';
 import React from 'react';
 import * as actions from '../actions/chosenProducts';
-import proceedToOffer from '../actions/proceedToOffer';
 import SpecLine from './SpecLine';
-import SortPicker from './SortPicker';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
-import SystemPicker from './SystemPicker';
-import numeral from 'numeral';
 import $ from 'jquery';
 import config from 'config';
 import imageFetcher from '../imageFetcher';
+import Header from './Header';
 import Q from 'q';
 
 export default class SpecLinesBuilder extends React.Component {
@@ -23,7 +20,6 @@ export default class SpecLinesBuilder extends React.Component {
         };
 
         this.handleAddLine = this.handleAddLine.bind(this);
-        this.handleProceedToOffer = this.handleProceedToOffer.bind(this);
         this.renderCategoryLine = this.renderCategoryLine.bind(this);
     }
 
@@ -82,10 +78,6 @@ export default class SpecLinesBuilder extends React.Component {
 
     handleAddLine(categoryId) {
         this.props.dispatch(actions.addEmptySpecLine(categoryId));
-    }
-
-    handleProceedToOffer() {
-        this.props.dispatch(proceedToOffer());
     }
 
     getTotalPrice() {
@@ -166,57 +158,15 @@ export default class SpecLinesBuilder extends React.Component {
         );
     }
 
-    renderTotal() {
-        let totalPrice = this.getTotalPrice();
-        let totalPriceCash = 0.98 * totalPrice;
-        let formattedTotal = numeral(totalPrice).format('0,0');
-        let formattedTotalCash = numeral(totalPriceCash).format('0,0');
-
-        return (
-            <div className="categoryLine total col-xs-12 col-md-3 pull-right">
-                <span className="title">סה״כ: </span>
-                <span className="title">
-                    {formattedTotal + ' / ₪' + formattedTotalCash}
-                </span>
-            </div>
-        );
-    }
-
-    renderSortPicker() {
-        return (
-            <div className='col-md-4 col-xs-12 pull-right'>
-                <SortPicker
-                    dispatch={this.props.dispatch}
-                    sortBy={this.props.sortBy}
-                />
-            </div>
-        );
-    }
-
-    renderProceedToOffer() {
-        return this.getTotalPrice() > 0 && (
-            <div className='offer control-row pull-right col-xs-12 col-md-2'>
-                <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
-            </div>
-        );
-    }
-
     renderHeader() {
         return (
-            <div className='header'>
-                <SystemPicker
-                    dispatch={this.props.dispatch}
-                    systems={this.props.systems}
-                    systemName={this.props.chosenSystem.systemName}
-                    subsystem={this.props.chosenSystem.subsystem}
-                />
-
-                <div className='controls row' ref="header">
-                    {this.renderSortPicker()}
-                    {this.renderTotal()}
-                    {this.renderProceedToOffer()}
-                </div>
-            </div>
+            <Header
+                dispatch={this.props.dispatch}
+                sortBy={this.props.sortBy}
+                systems={this.props.systems}
+                chosenSystem={this.props.chosenSystem}
+                totalPrice={this.getTotalPrice()}
+            />
         );
     }
 
