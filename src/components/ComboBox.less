@@ -122,30 +122,24 @@
                 overflow: hidden;
 
                 &.selected {
-                    background-color: rgba(0, 0, 0, 0.3) !important;
+                    background-color: rgba(0, 0, 0, 0.5) !important;
+                    color: white !important;
                 }
 
                 &.unclickable {
-                    cursor: auto;
-                    background-color: rgba(0, 0, 0, 0.095) !important;
+                    cursor: auto !important;
+                    background-color: transparent !important;
+                    color: #000 !important;
                 }
 
                 &:nth-child(even) {
-                    @color: rgba(0, 0, 0, 0.05);
-                    background-color: @color;
-
-                    &:hover {
-                        background-color: lighten(@color, 25%);
-                    }
+                    @color: rgba(0, 0, 0, 0.095);
+                    background-color: #F2F2F2;
                 }
 
-                &:nth-child(odd) {
-                    @color: rgba(0, 0, 0, 0.095);
-                    background-color: @color;
-
-                    &:hover {
-                        background-color: lighten(@color, 25%);
-                    }
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.4);
+                    color: white;
                 }
             }
         }
