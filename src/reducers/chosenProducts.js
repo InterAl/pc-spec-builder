@@ -6,7 +6,8 @@ import {
     SET_CHOSEN_PRODUCTS,
     DELETE_SPECLINE,
     SELECT_PRODUCT,
-    CHANGE_PRODUCT_QUANTITY
+    CHANGE_PRODUCT_QUANTITY,
+    RESET_CHOSEN_PRODUCTS
 } from '../actions/chosenProducts';
 
 import {
@@ -80,8 +81,14 @@ export default function(state = initialState, action) {
         break;
 
         case CHOOSE_SYSTEM: {
-            nextState = initialState;
+            nextState = resetState();
         }
+        break;
+
+        case RESET_CHOSEN_PRODUCTS: {
+            nextState = resetState();
+        }
+        break;
     }
 
     return nextState;
@@ -93,4 +100,8 @@ function createLine(mixin) {
         time: new Date(),
         quantity: 1
     }, mixin);
+}
+
+function resetState() {
+    return initialState;
 }

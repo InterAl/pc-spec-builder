@@ -1,5 +1,13 @@
 import guid from '../guid';
 
+export const RESET_CHOSEN_PRODUCTS = 'RESET_CHOSEN_PRODUCTS';
+
+export function resetChosenProducts() {
+    return {
+        type: RESET_CHOSEN_PRODUCTS
+    };
+}
+
 export const SET_CHOSEN_PRODUCTS = 'SET_CHOSEN_PRODUCTS';
 
 export function setChosenProducts(chosenProducts) {

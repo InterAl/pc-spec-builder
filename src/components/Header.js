@@ -4,6 +4,7 @@ import totalSumSelector from '../selectors/totalCalc';
 import SystemPicker from './SystemPicker';
 import SortPicker from './SortPicker';
 import proceedToOffer from '../actions/proceedToOffer';
+import {resetChosenProducts} from '../actions/chosenProducts';
 import './Header.less';
 
 const {PropTypes} = React;
@@ -21,10 +22,15 @@ export default class Header extends Component {
         super();
 
         this.handleProceedToOffer = this.handleProceedToOffer.bind(this);
+        this.handleResetClick = this.handleResetClick.bind(this);
     }
 
     handleProceedToOffer() {
         this.props.dispatch(proceedToOffer());
+    }
+
+    handleResetClick() {
+        this.props.dispatch(resetChosenProducts());
     }
 
     renderSortPicker() {
@@ -64,7 +70,7 @@ export default class Header extends Component {
 
     renderReset() {
         return (
-            <div className='col-md-2 reset'>
+            <div className='col-md-2 reset' onClick={this.handleResetClick}>
                 אתחל
             </div>
         );
@@ -84,7 +90,7 @@ export default class Header extends Component {
                     {this.renderSortPicker()}
                     {this.renderTotal()}
                     {this.renderProceedToOffer()}
-                    {/* {this.renderReset()} */}
+                    {this.renderReset()}
                 </div>
             </div>
         );
