@@ -4,6 +4,7 @@ import totalSumSelector from '../selectors/totalCalc';
 import SystemPicker from './SystemPicker';
 import SortPicker from './SortPicker';
 import proceedToOffer from '../actions/proceedToOffer';
+import './Header.less';
 
 const {PropTypes} = React;
 
@@ -44,7 +45,7 @@ export default class Header extends Component {
         let formattedTotalCash = numeral(totalPriceCash).format('0,0');
 
         return (
-            <div className="categoryLine total col-xs-12 col-md-3 pull-right">
+            <div className="total col-xs-12 col-md-3 pull-right">
                 <span className="title">סה״כ: </span>
                 <span className="title">
                     {formattedTotal + ' / ₪' + formattedTotalCash}
@@ -55,8 +56,16 @@ export default class Header extends Component {
 
     renderProceedToOffer() {
         return this.props.totalPrice > 0 && (
-            <div className='offer control-row pull-right col-xs-12 col-md-2'>
+            <div className='offer pull-right col-xs-12 col-md-2'>
                 <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
+            </div>
+        );
+    }
+
+    renderReset() {
+        return (
+            <div className='col-md-2 reset'>
+                אתחל
             </div>
         );
     }
@@ -75,6 +84,7 @@ export default class Header extends Component {
                     {this.renderSortPicker()}
                     {this.renderTotal()}
                     {this.renderProceedToOffer()}
+                    {/* {this.renderReset()} */}
                 </div>
             </div>
         );
