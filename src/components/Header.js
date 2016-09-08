@@ -51,7 +51,7 @@ export default class Header extends Component {
         let formattedTotalCash = numeral(totalPriceCash).format('0,0');
 
         return (
-            <div className="total col-xs-12 col-md-3 pull-right">
+            <div className="total col-xs-7 col-md-3 pull-right">
                 <span className="title">סה״כ: </span>
                 <span className="title">
                     {formattedTotal + ' / ₪' + formattedTotalCash}
@@ -62,7 +62,7 @@ export default class Header extends Component {
 
     renderProceedToOffer() {
         return this.props.totalPrice > 0 && (
-            <div className='offer pull-right col-xs-6 col-md-2'>
+            <div className='offer pull-right col-xs-3 col-md-2'>
                 <a onClick={this.handleProceedToOffer}>המשך להצעה</a>
             </div>
         );
@@ -70,7 +70,7 @@ export default class Header extends Component {
 
     renderReset() {
         return (
-            <div className='col-md-2 col-xs-6 reset' onClick={this.handleResetClick}>
+            <div className='col-md-2 col-xs-2 reset' onClick={this.handleResetClick}>
                 אתחל
             </div>
         );
