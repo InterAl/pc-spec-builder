@@ -112,8 +112,11 @@ export default class SpecLinesBuilder extends React.Component {
         let defaultUrl = `http://www.plonter.co.il/graphics/plonters/byopc/${category.engdivision}.png`;
         let productUrl = config.productImage.replace('{{sku}}', chosenSku);
 
-        if (chosenSku && productUrl !== this.state.categoryImages[category.id]) {
-            return imageFetcher(productUrl, defaultUrl).then(url => ({category, url}));
+        if (chosenSku ) {
+            if (productUrl !== this.state.categoryImages[category.id])
+                return imageFetcher(productUrl, defaultUrl).then(url => ({category, url}));
+            else
+                return Q({category, url: productUrl});
         } else {
             return Q({category, url: defaultUrl});
         }
