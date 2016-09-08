@@ -2,11 +2,57 @@
     margin-bottom: 1px;
     margin-right: 0;
 
-    .systems {
-        margin-bottom: 10px;
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .system-header {
+    }
+
+    .systems, .subsystems {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        flex-wrap: wrap-reverse;
 
         .system {
-            width: 100%;
+            @bgcolor: red;
+            display: flex;
+            direction: ltr;
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px;
+            background: linear-gradient(#888, #444);
+            flex: 1;
+            max-width: 300px;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                background-color: darken(@bgcolor, 15%);
+            }
+
+            &.selected {
+                border: 1px solid red;
+                animation: glow 800ms ease-out infinite alternate;
+            }
+        }
+
+        .arrow {
+            font-size: 36px;
+            flex: 1;
+        }
+
+        .system-back {
+            align-self: center;
+            cursor: pointer;
+            font-size: 24px;
+            margin-right: 20px;
+
+            &:hover {
+                color: red;
+            }
         }
     }
 
@@ -65,5 +111,60 @@
 
     .Select-option {
         direction: ltr;
+    }
+
+    @-webkit-keyframes glow {
+        0% {
+            border-color: #393;
+            box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
+        }	
+        100% {
+            border-color: #6f6;
+            box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+        }
+    }
+
+    @-moz-keyframes glow {
+        0% {
+            border-color: #393;
+            box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
+        }	
+        100% {
+            border-color: #6f6;
+            box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+        }
+    }
+
+    @-o-keyframes glow {
+        0% {
+            border-color: #393;
+            box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
+        }	
+        100% {
+            border-color: #6f6;
+            box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+        }
+    }
+
+    @-ms-keyframes glow {
+        0% {
+            border-color: #393;
+            box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
+        }	
+        100% {
+            border-color: #6f6;
+            box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+        }
+    }
+
+    @keyframes glow {
+        0% {
+            border-color: #393;
+            box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
+        }	
+        100% {
+            border-color: #6f6;
+            box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+        }
     }
 }

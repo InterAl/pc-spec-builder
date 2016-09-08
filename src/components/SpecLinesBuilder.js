@@ -35,8 +35,13 @@ export default class SpecLinesBuilder extends React.Component {
     }
 
     componentDidMount() {
-        this.originHeaderTop = $('.controls.row').offset().top;
         this.fixHeaderPosition();
+    }
+
+    componentDidUpdate() {
+        if (this.props.systems) {
+            this.originHeaderTop = $('.controls.row').offset().top;
+        }
     }
 
     componentWillReceiveProps(nextProps) {

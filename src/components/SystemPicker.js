@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import Select from 'react-select';
 import * as actions from '../actions/chosenSystem';
+import classNames from 'classnames';
 import './SystemPicker.less';
 
 export default class SystemPicker extends React.Component {
@@ -20,51 +21,63 @@ export default class SystemPicker extends React.Component {
         this.handleChooseSystem = this.handleChooseSystem.bind(this);
         this.handleClickSystem = this.handleClickSystem.bind(this);
         this.handleClickSubsystem = this.handleClickSubsystem.bind(this);
+        this.renderSystem = this.renderSystem.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            systemName: nextProps.systemName,
-            subsystem: nextProps.subsystem
-        });
+        if (!this.state.phase)
+            this.setState({
+                phase: 'systemPick'
+            });
     }
 
-    handleChooseSystem() {
-        let {systemName, subsystem} = this.state;
+    handleChooseSystem(systemName, subsystem) {
         this.props.dispatch(actions.chooseSystem(systemName, subsystem));
     }
 
     handleClickSystem(systemName) {
-        if (systemName !== this.state.systemName) {
-            let system = _.find(this.props.systems, (s, name) => name === systemName);
-            let subsystemName = Object.keys(system.subsystems)[0];
-            let subsystem = system.subsystems[subsystemName];
-            this.setState({ subsystem: subsystem && subsystemName });
-        }
+        let system = _.find(this.props.systems, (s, name) => name === systemName);
+        let subsystemName = Object.keys(system.subsystems)[0];
+        let subsystem = system.subsystems[subsystemName];
+
+        this.handleChooseSystem(systemName, subsystemName);
 
         this.setState({
-            systemName
+            phase: 'subsystemPick'
         });
     }
 
     handleClickSubsystem(systemName, subsystem) {
-        this.state.systemName === systemName &&
-        this.setState({subsystem: _.get(subsystem, 'value')});
+        this.handleChooseSystem(this.props.systemName, subsystem);
+    }
+
+    handleBack() {
+        this.setState({
+            phase: 'systemPick'
+        });
     }
 
     getSubsystems() {
         let system = _.find(this.props.systems,
-                      (s, name) => name === this.state.systemName);
+                      (s, name) => name === this.props.systemName);
 
         return {
             subsystems: _.get(system, 'subsystems'),
-            systemName: this.state.systemName
+            systemName: this.props.systemName
         };
     }
 
-    isDirty() {
-        return this.state.systemName !== this.props.systemName ||
-               this.state.subsystem !== this.props.subsystem;
+    renderSubsystem(systemName, subsystem) {
+        return (
+            <div key={subsystem}
+                className={classNames("system", {
+                    selected: this.props.subsystem === subsystem
+                })}
+                 onClick={() => this.handleClickSubsystem(systemName, subsystem)}>
+                {subsystem}
+            </div>
+        );
     }
 
     renderSubsystems() {
@@ -76,61 +89,59 @@ export default class SystemPicker extends React.Component {
         }));
 
         return (
-            <Select onChange={
-                subsystem => this.handleClickSubsystem(systemName, subsystem)
-            }
-                    value={this.state.subsystem}
-                    className="select col-sm-10 pull-right system"
-                    clearable={false}
-                    dir="ltr"
-                    options={options}
-                />
+            <div className="systems">
+                <span className='system-back' onClick={this.handleBack}>
+                    ⟳
+                </span>
+                <div className="subsystems">
+                    {_.map(subsystems, (s, sub) => this.renderSubsystem(systemName, sub))}
+                    <span className="arrow">
+                        ⬅
+                    </span>
+                </div>
+                <div className={classNames("system", {
+                    selected: this.props.systemName === systemName
+                })}>
+                    {systemName}
+                </div>
+            </div>
+        );
+    }
+
+    renderSystem(system, name) {
+        return (
+            <div key={name}
+                 className="system"
+                 onClick={() => this.handleClickSystem(name)}>
+                {name}
+            </div>
         );
     }
 
     renderSystems() {
-        const options = _.map(this.props.systems, (system, name) => ({
-            value: name,
-            label: name
-        }));
-
         return (
-            <Select onChange={({value}) => this.handleClickSystem(value)}
-                    value={this.state.systemName}
-                    className="select col-sm-10 pull-right system"
-                    clearable={false}
-                    dir="ltr"
-                    options={options}
-                />
+            <div className="systems">
+                {
+                    _.map(this.props.systems, this.renderSystem)
+                }
+            </div>
         );
     }
 
     render() {
         return (
             <div className="systemPicker">
-                <div className="systems row">
-                    <div className="col-xs-12 col-sm-6 pull-right">
-                        <div className="col-xs-12 col-sm-2 pull-right">
-                            סוג מערכת:
-                        </div>
-                        <div className="col-xs-12 col-sm-10 pull-right">
-                            {this.renderSystems()}
-                        </div>
-                    </div>
-                    {_.get(this.getSubsystems(), 'subsystems') &&
-                    <div className="col-xs-12 col-sm-3 pull-right">
-                        {this.renderSubsystems()}
-                    </div>
-                    }
+                <div className="row system-header">
+                    בחר סוג מערכת
                 </div>
-                {this.isDirty() &&
-                    <div className='row'>
-                        <div className='col-xs-4 col-xs-offset-4 button-row'>
-                            <button onClick={this.handleChooseSystem}
-                                    className='chooseBtn btn btn-link'>
-                                    שנה סוג מערכת
-                            </button>
-                        </div>
+                {this.state.phase === 'systemPick' &&
+                    <div className="row">
+                        {this.renderSystems()}
+                    </div>
+                }
+                {this.state.phase === 'subsystemPick' &&
+                    <div className="row">
+                        {this.renderSubsystems()}
                     </div>
                 }
             </div>
