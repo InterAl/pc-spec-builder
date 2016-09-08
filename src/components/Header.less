@@ -17,6 +17,7 @@
         cursor: pointer;
         font-size: 18px;
         color: red;
+        text-align: center;
         
         &:hover {
             color: lighten(red, 15%);
@@ -45,6 +46,12 @@
             font-weight: bold;
             color: ivory;
             text-align: center;
+        }
+    }
+
+    @media only screen and (max-device-width: 480px) {
+        .total, .offer, .reset {
+            margin-top: 10px;
         }
     }
 }
