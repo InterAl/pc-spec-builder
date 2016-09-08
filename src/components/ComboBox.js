@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import './ComboBox.less';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
@@ -16,7 +17,8 @@ class ComboBox extends React.Component {
         })),
         options: PropTypes.arrayOf(PropTypes.shape({
             value: PropTypes.any.isRequired,
-            text: PropTypes.string.isRequired
+            text: PropTypes.string.isRequired,
+            id: PropTypes.any
         })),
         onChange: PropTypes.func.isRequired,
         onTabChange: PropTypes.func,
@@ -35,6 +37,21 @@ class ComboBox extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.options !== this.props.options) {
             this.setState({options: nextProps.options});
+        }
+    }
+
+    componentDidUpdate() {
+        this.scrollToSelectedOption();
+    }
+
+    scrollToSelectedOption() {
+        let dropdownEle = ReactDOM.findDOMNode(this.refs.dropdown);
+        if (dropdownEle) {
+            let ele = this.refs[`option${this.state.selected}`];
+
+            if (ele) {
+                dropdownEle.scrollTop = ele.offsetTop - dropdownEle.offsetHeight / 2;
+            }
         }
     }
 
@@ -69,10 +86,10 @@ class ComboBox extends React.Component {
         this.setState({opened});
     }
 
-    handleOptionClick({text, value}) {
+    handleOptionClick({text, value, id}) {
         this.props.onChange(value);
         this.toggleSelect(false);
-        this.setState({dirty: false, value: text});
+        this.setState({dirty: false, value: text, selected: id});
     }
 
     handleTabClick({text, value}) {
@@ -161,11 +178,13 @@ class ComboBox extends React.Component {
             });
 
         return (
-            <div className="comboBox-options">
+            <div ref="dropdown" className="comboBox-options">
                 {_.map(options, (option, idx) => {
                     return (
-                       <div className={classNames("comboBox-option", {
-                           unclickable: option.unclickable
+                       <div ref={`option${option.id}`}
+                            className={classNames("comboBox-option", {
+                           unclickable: option.unclickable,
+                           selected: option.id === this.state.selected
                        })}
                              key={idx}
                              onClick={() => !option.unclickable &&

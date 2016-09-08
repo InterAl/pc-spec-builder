@@ -69,7 +69,8 @@ export default class SpecLine extends React.Component {
         let options = _.map(products, (p, idx) => {
             return {
                 value: p,
-                text: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`
+                text: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`,
+                id: p.id
             };
         });
 

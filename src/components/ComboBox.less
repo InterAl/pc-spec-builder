@@ -118,8 +118,13 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
 
+                &.selected {
+                    background-color: rgba(0, 0, 0, 0.3) !important;
+                }
+
                 &.unclickable {
                     cursor: auto;
+                    background-color: rgba(0, 0, 0, 0.095);
                 }
 
                 &:nth-child(even) {
