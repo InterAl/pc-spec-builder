@@ -84,6 +84,9 @@ class ComboBox extends React.Component {
 
     toggleSelect(opened) {
         this.setState({opened});
+
+        if (opened)
+            this.refs.input.focus();
     }
 
     handleOptionClick({text, value, id}) {
