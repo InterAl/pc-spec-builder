@@ -60,10 +60,11 @@
         @dropdownMaxHeight: 500px;
         @tabsHeight: 30px;
         position: absolute;
+        display: flex;
+        flex-direction: column;
         z-index: 1;
         top: 100%;
         width: 100%;
-        max-height: @dropdownMaxHeight;
         background-color: #fff;
         border: 1px solid #000;
         border-top: 0;
@@ -75,6 +76,7 @@
 
         .comboBox-tabpages {
             display: flex;
+            flex: 1;
             flex-direction: row;
             justify-content: flex-start;
             flex-wrap: wrap;
@@ -107,8 +109,9 @@
         }
 
         .comboBox-options {
-            max-height: calc(@dropdownMaxHeight ~"-" @tabsHeight);
             overflow-y: auto;
+            max-height: @dropdownMaxHeight;
+            flex: 1;
 
             .comboBox-option {
                 color: black;
@@ -124,7 +127,7 @@
 
                 &.unclickable {
                     cursor: auto;
-                    background-color: rgba(0, 0, 0, 0.095);
+                    background-color: rgba(0, 0, 0, 0.095) !important;
                 }
 
                 &:nth-child(even) {
