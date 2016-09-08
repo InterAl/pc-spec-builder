@@ -5,7 +5,7 @@ export default function() {
     return (dispatch, getState) => {
         let plonterOffer = createPlonterOffer(getState());
 
-        submitForm('http://www.plonter.co.il/buildyourownpcX2.tmpl', {
+        submitForm('/buildyourownpcX2.tmpl', {
             method: 'POST',
             body: plonterOffer
         });

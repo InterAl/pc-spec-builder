@@ -109,7 +109,7 @@ export default class SpecLinesBuilder extends React.Component {
     getImageUrl(category) {
         let chosenProduct = _.find(category.productLines, p => p.id);
         let chosenSku = _.get(chosenProduct, 'id');
-        let defaultUrl = `http://www.plonter.co.il/graphics/plonters/byopc/${category.engdivision}.png`;
+        let defaultUrl = config.categoryImage.replace('{{engdivision}}', category.engdivision);
         let productUrl = config.productImage.replace('{{sku}}', chosenSku);
 
         if (chosenSku ) {

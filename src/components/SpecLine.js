@@ -94,8 +94,8 @@ export default class SpecLine extends React.Component {
 
         return productWasChosen && (
             <div className='link col-xs-1 pull-right'>
-                <a href={`http://www.plonter.co.il/detail.tmpl?sku=${this.props.chosenProduct.productId}`}
-                    target='_blank'><img src='http://www.plonter.co.il/1inf.gif' /></a>
+                <a href={`/detail.tmpl?sku=${this.props.chosenProduct.productId}`}
+                    target='_blank'><img src='/1inf.gif' /></a>
             </div>
         );
     }
