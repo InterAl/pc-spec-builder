@@ -1,9 +1,16 @@
 import _ from 'lodash';
 import submitForm from 'submit-form';
+import {save} from '../persister';
+import ga from '../googleAnalytics';
 
 export default function() {
+    ga.sendEvent({action: 'offer'});
+
     return (dispatch, getState) => {
-        let plonterOffer = createPlonterOffer(getState());
+        const state = getState();
+        let plonterOffer = createPlonterOffer(state);
+
+        save(state);
 
         submitForm('/buildyourownpcX2.tmpl', {
             method: 'POST',

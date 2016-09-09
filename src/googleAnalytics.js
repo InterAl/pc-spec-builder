@@ -10,8 +10,8 @@ function init() {
     ga('send', 'pageview');
 }
 
-function sendEvent({category, action, label, value, fields}) {
-    ga('send', 'event', category, action, label, value, fields);
+function sendEvent({action, label, value, fields}) {
+    ga('send', 'event', 'SpecBuilder', action, label, value, fields);
 }
 
 function time(key) {
@@ -23,7 +23,7 @@ function timeEnd(key) {
     let start = timers[key];
     let ms = end - start;
     console.log(`[timer] ${key}: ${ms} ms`);
-    sendEvent({category: key, action: 'fetch', value: ms});
+    sendEvent({action: key, value: ms});
 }
 
 export default {

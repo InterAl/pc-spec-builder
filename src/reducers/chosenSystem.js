@@ -9,9 +9,11 @@ import {
     SET_SPEC_OPTIONS
 } from '../actions/setSpecOptions';
 
-const initialState = {
+import {load} from '../persister';
+
+const initialState = load('chosenSystem', {
     phase: 'systemPick'
-};
+});
 
 export default function(state = initialState, action) {
     let nextState = state;
@@ -27,19 +29,21 @@ export default function(state = initialState, action) {
         break;
 
         case SET_SPEC_OPTIONS: {
-            let systems = _.get(action, 'specOptions.systems');
+            if (!state.systemName) {
+                let systems = _.get(action, 'specOptions.systems');
 
-            let systemName = Object.keys(systems)[0];
+                let systemName = Object.keys(systems)[0];
 
-            let subsystem = systemName &&
-                            systems[systemName].subsystems &&
-                            Object.keys(systems[systemName].subsystems)[0];
+                let subsystem = systemName &&
+                                systems[systemName].subsystems &&
+                                Object.keys(systems[systemName].subsystems)[0];
 
-            nextState = {
-                ...state,
-                systemName,
-                subsystem
-            };
+                nextState = {
+                    ...state,
+                    systemName,
+                    subsystem
+                };
+            }
         }
         break;
 

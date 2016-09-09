@@ -14,7 +14,9 @@ import {
     CHOOSE_SYSTEM
 } from '../actions/chosenSystem';
 
-const initialState = [];
+import {load} from '../persister';
+
+const initialState = load('chosenProducts', []);
 
 export default function(state = initialState, action) {
     let nextState = state;

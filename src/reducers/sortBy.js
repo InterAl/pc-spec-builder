@@ -6,7 +6,9 @@ import {
     SORT_BY_POPULARITY
 } from '../actions/sortBy';
 
-const initialState = 'price';
+import {load} from '../persister';
+
+const initialState = load('sortBy', 'price');
 
 export default function(state = initialState, action) {
     let nextState = state;

@@ -26,7 +26,8 @@ class ComboBox extends React.Component {
         filter: PropTypes.func.isRequired,
         placeholder: PropTypes.string,
         className: PropTypes.string,
-        showRowCount: PropTypes.bool
+        showRowCount: PropTypes.bool,
+        value: PropTypes.object
     }
 
     static defaultProps = {
@@ -37,6 +38,14 @@ class ComboBox extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.options !== this.props.options) {
             this.setState({options: nextProps.options});
+        }
+    }
+
+    componentDidMount() {
+        let opt = _.find(this.props.options, o => o.id === this.props.value);
+        if (opt) {
+            console.log('setting combo', opt, opt.text, this.props.value)
+            this.setState({value: opt.text, selected: this.props.value});
         }
     }
 
