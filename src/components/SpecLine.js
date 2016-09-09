@@ -2,10 +2,8 @@ import * as actions from '../actions/chosenProducts';
 import './SpecLine.less';
 import _ from 'lodash';
 import React from 'react';
-import Select from 'react-select';
 import ComboBox from './ComboBox';
 import numeral from 'numeral';
-import 'react-select/dist/react-select.css';
 
 export default class SpecLine extends React.Component {
     constructor() {

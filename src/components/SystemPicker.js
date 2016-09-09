@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import Select from 'react-select';
 import * as actions from '../actions/chosenSystem';
 import classNames from 'classnames';
 import {setSystemPickPhase} from '../actions/chosenSystem';

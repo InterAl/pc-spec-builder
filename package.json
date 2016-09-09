@@ -74,7 +74,6 @@
     "react-hot-loader": "^1.2.9",
     "react-onclickoutside": "^5.5.0",
     "react-redux": "^4.4.5",
-    "react-select": "^1.0.0-beta14",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
