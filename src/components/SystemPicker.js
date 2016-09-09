@@ -3,6 +3,7 @@ import React from 'react';
 import Select from 'react-select';
 import * as actions from '../actions/chosenSystem';
 import classNames from 'classnames';
+import {setSystemPickPhase} from '../actions/chosenSystem';
 import './SystemPicker.less';
 
 export default class SystemPicker extends React.Component {
@@ -10,26 +11,18 @@ export default class SystemPicker extends React.Component {
         dispatch: React.PropTypes.func.isRequired,
         systems: React.PropTypes.object.isRequired,
         systemName: React.PropTypes.number.isRequired,
-        subsystem: React.PropTypes.string
+        subsystem: React.PropTypes.string,
+        phase: React.PropTypes.string.isRequired
     }
 
     constructor(props) {
         super();
-
-        this.state = {};
 
         this.handleChooseSystem = this.handleChooseSystem.bind(this);
         this.handleClickSystem = this.handleClickSystem.bind(this);
         this.handleClickSubsystem = this.handleClickSubsystem.bind(this);
         this.renderSystem = this.renderSystem.bind(this);
         this.handleBack = this.handleBack.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!this.state.phase)
-            this.setState({
-                phase: 'systemPick'
-            });
     }
 
     handleChooseSystem(systemName, subsystem) {
@@ -42,10 +35,7 @@ export default class SystemPicker extends React.Component {
         let subsystem = system.subsystems[subsystemName];
 
         this.handleChooseSystem(systemName, subsystemName);
-
-        this.setState({
-            phase: 'subsystemPick'
-        });
+        this.props.dispatch(setSystemPickPhase('subsystemPick'));
     }
 
     handleClickSubsystem(systemName, subsystem) {
@@ -53,9 +43,7 @@ export default class SystemPicker extends React.Component {
     }
 
     handleBack() {
-        this.setState({
-            phase: 'systemPick'
-        });
+        this.props.dispatch(setSystemPickPhase('systemPick'));
     }
 
     getSubsystems() {
@@ -89,7 +77,7 @@ export default class SystemPicker extends React.Component {
         }));
 
         return (
-            <div className="systems">
+            <div className="systems subsystemPick">
                 <span className='system-back' onClick={this.handleBack}>
                     ⟳
                 </span>
@@ -111,7 +99,9 @@ export default class SystemPicker extends React.Component {
     renderSystem(system, name) {
         return (
             <div key={name}
-                 className="system"
+                 className={classNames("system", {
+                    selected: this.props.systemName === name
+                })}
                  onClick={() => this.handleClickSystem(name)}>
                 {name}
             </div>
@@ -134,12 +124,12 @@ export default class SystemPicker extends React.Component {
                 <div className="row system-header">
                     בחר סוג מערכת
                 </div>
-                {this.state.phase === 'systemPick' &&
+                {this.props.phase === 'systemPick' &&
                     <div className="row">
                         {this.renderSystems()}
                     </div>
                 }
-                {this.state.phase === 'subsystemPick' &&
+                {this.props.phase === 'subsystemPick' &&
                     <div className="row">
                         {this.renderSubsystems()}
                     </div>

@@ -7,3 +7,12 @@ export function chooseSystem(systemName, subsystem) {
         subsystem
     };
 }
+
+export const SET_SYSTEM_PICK_PHASE = 'SET_SYSTEM_PICK_PHASE';
+
+export function setSystemPickPhase(phase) {
+    return {
+        type: SET_SYSTEM_PICK_PHASE,
+        phase
+    };
+}

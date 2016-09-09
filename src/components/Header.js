@@ -84,6 +84,7 @@ export default class Header extends Component {
                     systems={this.props.systems}
                     systemName={this.props.chosenSystem.systemName}
                     subsystem={this.props.chosenSystem.subsystem}
+                    phase={this.props.chosenSystem.phase}
                 />
 
                 <div className='controls row' ref="header">

@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 import {
-    CHOOSE_SYSTEM
+    CHOOSE_SYSTEM,
+    SET_SYSTEM_PICK_PHASE
 } from '../actions/chosenSystem';
 
 import {
@@ -9,6 +10,7 @@ import {
 } from '../actions/setSpecOptions';
 
 const initialState = {
+    phase: 'systemPick'
 };
 
 export default function(state = initialState, action) {
@@ -23,6 +25,7 @@ export default function(state = initialState, action) {
             };
         }
         break;
+
         case SET_SPEC_OPTIONS: {
             let systems = _.get(action, 'specOptions.systems');
 
@@ -36,6 +39,14 @@ export default function(state = initialState, action) {
                 ...state,
                 systemName,
                 subsystem
+            };
+        }
+        break;
+
+        case SET_SYSTEM_PICK_PHASE: {
+            nextState = {
+                ...state,
+                phase: action.phase
             };
         }
         break;
