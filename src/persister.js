@@ -36,7 +36,7 @@ export function load(slice, defaultValue) {
 }
 
 function hasExpired(state) {
-    let then = state.timestamp;
+    let then = new Date(state.timestamp);
     let elapsed = new Date() - then;
-    return elapsed < expirationMs;
+    return elapsed > expirationMs;
 }
