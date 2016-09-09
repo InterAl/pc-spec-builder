@@ -5,14 +5,22 @@ import {setSpecOptions} from '../actions/setSpecOptions';
 import tsv from 'tsv';
 import textEncoding from 'text-encoding';
 import config from 'config';
+import ga from '../googleAnalytics';
 
 const {TextDecoder} = textEncoding;
 
 export default function() {
+    ga.init();
+
+    ga.time('bootstrap');
+    ga.time('fetch');
+
     return dispatch => {
         return Q.all([fetch(config.productsApiUrl),
                       fetch(config.systemsApiUrl)])
             .spread((productsResponse, systemsResponse) => {
+                ga.timeEnd('fetch');
+
                 return Q.all([
                     productsResponse.arrayBuffer(),
                     systemsResponse.json()
@@ -29,6 +37,7 @@ export default function() {
             .then(parseFile)
             .then(plonterFileToSpecOptions)
             .then(specOptions => dispatch(setSpecOptions(specOptions)))
+            .then(() => ga.timeEnd('bootstrap'))
             .catch(err => console.error('failed bootstrapping', err));
     };
 }
