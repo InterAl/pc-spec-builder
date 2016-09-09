@@ -39,9 +39,8 @@ export default class SpecLinesBuilder extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.systems) {
+        if (!$('.specLinesBuilder').hasClass('fixed-header'))
             this.originHeaderTop = $('.controls.row').offset().top;
-        }
     }
 
     componentWillReceiveProps(nextProps) {
