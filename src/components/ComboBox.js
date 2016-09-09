@@ -44,7 +44,6 @@ class ComboBox extends React.Component {
     componentDidMount() {
         let opt = _.find(this.props.options, o => o.id === this.props.value);
         if (opt) {
-            console.log('setting combo', opt, opt.text, this.props.value)
             this.setState({value: opt.text, selected: this.props.value});
         }
     }
