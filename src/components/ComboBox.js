@@ -27,7 +27,7 @@ class ComboBox extends React.Component {
         placeholder: PropTypes.string,
         className: PropTypes.string,
         showRowCount: PropTypes.bool,
-        value: PropTypes.object
+        value: PropTypes.any
     }
 
     static defaultProps = {

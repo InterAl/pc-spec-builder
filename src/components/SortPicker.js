@@ -32,6 +32,7 @@ export default React.createClass({
                 <div className="col-xs-3 pull-right sort-radio" onClick={this.handleSortByPrice}>
                     <input type="radio"
                            name="sort"
+                           readOnly
                            checked={this.props.sortBy === 'price'} />
                     <span>
                         מחיר
@@ -40,6 +41,7 @@ export default React.createClass({
                 <div className="col-xs-3 pull-right sort-radio" onClick={this.handleSortByManufacturer}>
                     <input type="radio"
                            name="sort"
+                           readOnly
                            checked={this.props.sortBy === 'manufacturer'} />
                     <span>
                         יצרן
@@ -48,6 +50,7 @@ export default React.createClass({
                 <div className="col-xs-4 pull-right sort-radio" onClick={this.handleSortByPopularity}>
                     <input type="radio"
                         name="sort"
+                        readOnly
                         checked={this.props.sortBy === 'popularity'} />
                     <span>
                         הכי נמכר

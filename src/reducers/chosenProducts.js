@@ -105,5 +105,5 @@ function createLine(mixin) {
 }
 
 function resetState() {
-    return initialState;
+    return [];
 }
