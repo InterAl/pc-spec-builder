@@ -20,6 +20,7 @@ export default function() {
                       fetch(config.systemsApiUrl)])
             .spread((productsResponse, systemsResponse) => {
                 ga.timeEnd('fetch');
+                ga.time('decode');
 
                 return Q.all([
                     productsResponse.arrayBuffer(),
@@ -28,6 +29,8 @@ export default function() {
             })
             .spread((productsBuffer, systemsJson) => {
                 let productsTxt = new TextDecoder("windows-1255").decode(productsBuffer);
+                ga.timeEnd('decode');
+                ga.time('parse');
 
                 return {
                     productsTxt,
@@ -52,6 +55,7 @@ function parseFile({productsTxt, systemsJson}) {
     }
     let tsvParsed = tsv.parse(tsvTxt);
 
+    ga.timeEnd('parse');
 
     return {
         plonterProducts: tsvParsed,
@@ -60,6 +64,8 @@ function parseFile({productsTxt, systemsJson}) {
 }
 
 function plonterFileToSpecOptions({plonterProducts, systems}) {
+    ga.time('build state');
+
     let products = [],
         categories = [],
         divisions = [],
@@ -120,6 +126,8 @@ function plonterFileToSpecOptions({plonterProducts, systems}) {
 
         _.each(s.subsystems, (sub, key) => s.subsystems[key] = _.map(sub, t => t.toLowerCase()));
     });
+
+    ga.timeEnd('build state');
 
     let result = {products, categories, tags, systems: systems.systems};
     return result;
