@@ -19,6 +19,7 @@ export default function() {
 function createPlonterOffer(state) {
     return _(state.chosenProducts)
                 .filter(p => p.productId)
+                .sortBy(['idx', 'time'])
                 .reduce((p, c) => ({
                     ...p,
                     [c.productId]: c.quantity

@@ -18,7 +18,8 @@ export default class SpecLine extends React.Component {
         chosenProduct: React.PropTypes.object,
         products: React.PropTypes.array.isRequired,
         dispatch: React.PropTypes.func.isRequired,
-        categoryId: React.PropTypes.number.isRequired
+        categoryId: React.PropTypes.number.isRequired,
+        idx: React.PropTypes.number.isRequired
     }
 
     handleRemoveLine() {

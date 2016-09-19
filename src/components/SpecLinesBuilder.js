@@ -80,8 +80,8 @@ export default class SpecLinesBuilder extends React.Component {
         });
     }
 
-    handleAddLine(categoryId) {
-        this.props.dispatch(actions.addEmptySpecLine(categoryId));
+    handleAddLine(categoryId, idx) {
+        this.props.dispatch(actions.addEmptySpecLine(categoryId, idx));
     }
 
     getTotalPrice() {
@@ -124,6 +124,7 @@ export default class SpecLinesBuilder extends React.Component {
               <SpecLine dispatch={this.props.dispatch}
                         key={chosenProduct.lineId}
                         products={category.availableProducts}
+                        idx={idx}
                         chosenProduct={chosenProduct} />
           ));
 
@@ -134,7 +135,7 @@ export default class SpecLinesBuilder extends React.Component {
                         <img src={this.state.categoryImages[category.id]} />
                     </div>
                     <div className="col-xs-12 col-md-10 pull-right categoryNameRow">
-                        <button onClick={() => this.handleAddLine(category.id)}
+                        <button onClick={() => this.handleAddLine(category.id, idx)}
                                 className="btn btn-link"
                         >
                             +&nbsp;

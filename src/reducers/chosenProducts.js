@@ -3,7 +3,6 @@ import guid from '../guid';
 
 import {
     ADD_EMPTY_SPECLINE,
-    SET_CHOSEN_PRODUCTS,
     DELETE_SPECLINE,
     SELECT_PRODUCT,
     CHANGE_PRODUCT_QUANTITY,
@@ -24,24 +23,13 @@ export default function(state = initialState, action) {
     switch(action.type) {
         case ADD_EMPTY_SPECLINE: {
             const newChosenProduct = createLine({
-                categoryId: action.categoryId
+                categoryId: action.categoryId,
+                idx: action.idx
             });
 
             nextState = [
                 ...state,
                 newChosenProduct
-            ];
-        }
-        break;
-
-        case SET_CHOSEN_PRODUCTS: {
-            let chosenProducts = action.chosenProducts.map(p => createLine({
-                ...p
-            }));
-
-            nextState = [
-                ...state,
-                ...chosenProducts
             ];
         }
         break;
