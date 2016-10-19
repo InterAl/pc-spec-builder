@@ -78,7 +78,7 @@ export default class SpecLine extends React.Component {
                       value={this.props.chosenProduct.id || -1}
                       className="col-xs-10 pull-right"
                       options={options}
-                      placeholder="בחר מוצר"
+                      placeholder="בחר מוצר / הקלד לחיפוש"
                       onClear={this.handleRemoveLine}
                       filter={this.handleComboBoxFilter}
                       tabs={this.getTabs(products)}
