@@ -69,13 +69,16 @@ export default class SpecLinesBuilder extends React.Component {
             let container = $('.specLinesBuilder');
             let headerTop = $('.controls.row').offset().top;
             let socialbar = $('.at4-follow-container.addthis_24x24_style');
+            let accessibilityBar = $('.btn_accessibility.accessibility_component');
 
             if (docScrollTop > this.originHeaderTop) {
                 container.addClass('fixed-header');
                 socialbar.hide();
+                accessibilityBar.hide();
             } else {
                 container.removeClass('fixed-header');
                 socialbar.show();
+                accessibilityBar.show();
             }
         });
     }

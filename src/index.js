@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import configureStore from './stores';
 import App from './containers/App';
 global.jQuery = require('jquery');
-require('bootstrap/less/bootstrap.less');
 
 const store = configureStore();
 
