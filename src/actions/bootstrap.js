@@ -2,6 +2,7 @@ import _ from 'lodash';
 import Q from 'q';
 import 'whatwg-fetch';
 import {setSpecOptions} from '../actions/setSpecOptions';
+import {chooseSystem} from '../actions/chosenSystem';
 import tsv from 'tsv';
 import textEncoding from 'text-encoding';
 import config from 'config';
@@ -15,7 +16,7 @@ export default function() {
     ga.time('bootstrap');
     ga.time('fetch');
 
-    return dispatch => {
+    return (dispatch, getState) => {
         return Q.all([fetch(config.productsApiUrl),
                       fetch(config.systemsApiUrl)])
             .spread((productsResponse, systemsResponse) => {
@@ -39,7 +40,18 @@ export default function() {
             })
             .then(parseFile)
             .then(plonterFileToSpecOptions)
-            .then(specOptions => dispatch(setSpecOptions(specOptions)))
+            .then(specOptions => {
+                const {chosenSystem = {}} = getState();
+
+                if (chosenSystem.systemName && (
+                    !specOptions.systems[chosenSystem.systemName] ||
+                    !specOptions.systems[chosenSystem.systemName]
+                                .subsystems[chosenSystem.subsystem])) {
+                    dispatch(chooseSystem(null, null));
+                }
+
+                dispatch(setSpecOptions(specOptions));
+            })
             .then(() => ga.timeEnd('bootstrap'))
             .catch(err => console.error('failed bootstrapping', err));
     };
