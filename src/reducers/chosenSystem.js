@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import queryString from 'query-string';
 
 import {
     CHOOSE_SYSTEM,
@@ -11,9 +12,16 @@ import {
 
 import {load} from '../persister';
 
-const initialState = load('chosenSystem', {
+const query = queryString.parse(location.search);
+const systemFromQuerystring = query.system && decodeURIComponent(query.system);
+const defaultSystemCfg = systemFromQuerystring ? {
+    phase: 'subsystemPick',
+    systemName: systemFromQuerystring
+} : {
     phase: 'systemPick'
-});
+};
+
+const initialState = load('chosenSystem', defaultSystemCfg);
 
 export default function(state = initialState, action) {
     let nextState = state;
