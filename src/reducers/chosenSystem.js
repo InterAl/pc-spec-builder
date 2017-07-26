@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import queryString from 'query-string';
 
 import {
     CHOOSE_SYSTEM,
@@ -10,20 +9,7 @@ import {
     SET_SPEC_OPTIONS
 } from '../actions/setSpecOptions';
 
-import {load} from '../persister';
-
-const query = queryString.parse(location.search);
-const systemFromQuerystring = query.system && decodeURIComponent(query.system);
-const defaultSystemCfg = systemFromQuerystring ? {
-    phase: 'subsystemPick',
-    systemName: systemFromQuerystring
-} : {
-    phase: 'systemPick'
-};
-
-const initialState = load('chosenSystem', defaultSystemCfg);
-
-export default function(state = initialState, action) {
+export default function(state = {phase: 'systemPick'}, action) {
     let nextState = state;
 
     switch(action.type) {
@@ -31,7 +17,8 @@ export default function(state = initialState, action) {
             nextState = {
                 ...state,
                 systemName: action.systemName,
-                subsystem: action.subsystem
+                subsystem: action.subsystem,
+                phase: action.systemName ? 'subsystemPick' : 'systemPick'
             };
         }
         break;

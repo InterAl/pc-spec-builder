@@ -7,6 +7,8 @@ import tsv from 'tsv';
 import textEncoding from 'text-encoding';
 import config from 'config';
 import ga from '../googleAnalytics';
+import queryString from 'query-string';
+import {load} from '../persister';
 
 const {TextDecoder} = textEncoding;
 
@@ -41,13 +43,17 @@ export default function() {
             .then(parseFile)
             .then(plonterFileToSpecOptions)
             .then(specOptions => {
-                const {chosenSystem = {}} = getState();
+                const query = queryString.parse(location.search);
+                const systemFromQuerystring = query.system && decodeURIComponent(query.system);
 
-                if (chosenSystem.systemName && (
-                    !specOptions.systems[chosenSystem.systemName] ||
-                    !specOptions.systems[chosenSystem.systemName]
-                                .subsystems[chosenSystem.subsystem])) {
-                    dispatch(chooseSystem(null, null));
+                if (systemFromQuerystring) {
+                    const subsytemFromQuerystring = _.keys(_.get(specOptions.systems[systemFromQuerystring], 'subsystems'))[0];
+                    dispatch(chooseSystem(systemFromQuerystring, subsytemFromQuerystring));
+                } else {
+                    const systemFromLs = load('chosenSystem');
+                    const systemName = systemFromLs ? systemFromLs.systemName : null;
+                    const subsystemName = systemFromLs ? systemFromLs.subsystem : null;
+                    dispatch(chooseSystem(systemName, subsystemName));
                 }
 
                 dispatch(setSpecOptions(specOptions));
