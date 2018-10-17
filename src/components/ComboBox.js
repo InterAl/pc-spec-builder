@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import './ComboBox.less';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import clickOutside from 'react-onclickoutside';
+import TextAreaAutoRows from './TextAreaAutoRows.js';
 
 const {PropTypes} = React;
 const noop = _.noop;
@@ -143,11 +144,23 @@ class ComboBox extends React.Component {
     }
 
     renderSelect() {
+        const inputValue = this.getTextValue(this.state.value);
+
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
-                <input type="text"
+                <TextAreaAutoRows
+                       className="hidden-md hidden-lg"
+                       type="text"
                        ref="input"
-                       value={this.getTextValue(this.state.value)}
+                       value={inputValue}
+                       onFocus={()=>{this.refs.input.select()}}
+                       onChange={this.handleTextChange}
+                 />
+                 <input
+                       className="hidden-xs hidden-sm"
+                       type="text"
+                       ref="input"
+                       value={inputValue}
                        onFocus={()=>{this.refs.input.select()}}
                        onChange={this.handleTextChange}/>
                 {this.renderArrow()}
@@ -194,8 +207,8 @@ class ComboBox extends React.Component {
                     return (
                        <div ref={`option${option.id}`}
                             className={classNames("comboBox-option", {
-                           unclickable: option.unclickable,
-                           selected: option.id === this.state.selected
+                            unclickable: option.unclickable,
+                            selected: option.id === this.state.selected
                        })}
                              key={idx}
                              onClick={() => !option.unclickable &&
