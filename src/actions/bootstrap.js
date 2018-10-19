@@ -9,6 +9,7 @@ import config from 'config';
 import ga from '../googleAnalytics';
 import queryString from 'query-string';
 import {load} from '../persister';
+import responsiveController from './responsiveController.js';
 
 const {TextDecoder} = textEncoding;
 
@@ -19,6 +20,8 @@ export default function() {
     ga.time('fetch');
 
     return (dispatch, getState) => {
+        dispatch(responsiveController());
+
         return Q.all([fetch(config.productsApiUrl),
                       fetch(config.systemsApiUrl)])
             .spread((productsResponse, systemsResponse) => {

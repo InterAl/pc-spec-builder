@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 
 const reducers = {
-    specOptions: require('../reducers/specOptions.js'),
-    chosenProducts: require('../reducers/chosenProducts.js').default,
-    sortBy: require('../reducers/sortBy.js').default,
-    chosenSystem: require('../reducers/chosenSystem.js').default
+    specOptions: require('./specOptions.js'),
+    chosenProducts: require('./chosenProducts.js').default,
+    sortBy: require('./sortBy.js').default,
+    chosenSystem: require('./chosenSystem.js').default,
+    responsive: require('./responsive.js').default
 };
 
 module.exports = combineReducers(reducers);

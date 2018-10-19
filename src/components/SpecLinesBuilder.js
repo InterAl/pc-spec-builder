@@ -1,16 +1,19 @@
 import './SpecLinesBuilder.less';
 import _ from 'lodash';
 import React from 'react';
+import { connect } from 'react-redux';
 import * as actions from '../actions/chosenProducts';
 import SpecLine from './SpecLine';
 import categoryLinesSelector from '../selectors/categoryLines';
 import totalSumSelector from '../selectors/totalCalc';
 import $ from 'jquery';
+import cx from 'classnames';
 import config from 'config';
 import imageFetcher from '../imageFetcher';
 import Header from './Header';
 import Q from 'q';
 
+@connect(state => ({isMobile: state.responsive.isMobile}))
 export default class SpecLinesBuilder extends React.Component {
     constructor() {
         super();
@@ -180,7 +183,10 @@ export default class SpecLinesBuilder extends React.Component {
 
     render() {
         return (
-            <div className="specLinesBuilder">
+            <div className={cx('specLinesBuilder', {
+                mobile: this.props.isMobile,
+                desktop: !this.props.isMobile
+            })}>
                 {this.renderHeader()}
                 {this.renderCategories()}
             </div>

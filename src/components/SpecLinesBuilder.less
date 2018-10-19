@@ -1,19 +1,27 @@
 .specLinesBuilder {
+    .controls.row {
+        background: linear-gradient(rgb(51, 51, 51), rgb(34, 34, 34));
+        padding: 10px;
+        width: 100%;
+    }
+
     &.fixed-header {
         .controls.row {
             position: fixed;
-            width: 100%;
             z-index: 2;
             top: 0;
             right: 0;
-            background: linear-gradient(rgb(51, 51, 51), rgb(34, 34, 34));
-            padding: 10px;
+            width: 100%;
         }
 
         .categories {
             position: relative;
-            top: 40px;
+            top: 49px;
             margin-bottom: 37px;
+
+            .mobile& {
+                top: 84px;
+            }
         }
     }
 

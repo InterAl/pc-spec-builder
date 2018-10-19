@@ -2,39 +2,21 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import './ComboBox.less';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import './ComboBox.desktop.less';
 import clickOutside from 'react-onclickoutside';
-import TextAreaAutoRows from './TextAreaAutoRows.js';
+import TextAreaAutoRows from '../TextAreaAutoRows.js';
+import {PropTypes} from './index.js';
 
-const {PropTypes} = React;
 const noop = _.noop;
 
+@clickOutside
 class ComboBox extends React.Component {
-    static propTypes = {
-        tabs: PropTypes.arrayOf(PropTypes.shape({
-            value: PropTypes.string.isRequired,
-            text: PropTypes.string.isRequired
-        })),
-        options: PropTypes.arrayOf(PropTypes.shape({
-            value: PropTypes.any.isRequired,
-            text: PropTypes.string.isRequired,
-            id: PropTypes.any
-        })),
-        onChange: PropTypes.func.isRequired,
-        onTabChange: PropTypes.func,
-        onClear: PropTypes.func,
-        filter: PropTypes.func.isRequired,
-        placeholder: PropTypes.string,
-        className: PropTypes.string,
-        showRowCount: PropTypes.bool,
-        value: PropTypes.any
-    }
+    static propTypes = PropTypes;
 
     static defaultProps = {
         onChange: noop,
         onTabChange: noop
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.options !== this.props.options) {
@@ -229,7 +211,7 @@ class ComboBox extends React.Component {
             <div className="comboBox-tabpages">
                 {_.map(this.props.tabs, (tab, idx) => {
                     return (
-                       <div className={classNames("comboBox-tabpages-tab", {
+                       <div className={classNames('comboBox-tabpages-tab', {
                            selected: this.state.tabValue === tab.value
                        })}
                              key={idx}
@@ -249,18 +231,10 @@ class ComboBox extends React.Component {
                opened: this.state.opened
            })}>
                 {this.renderSelect()}
-                {/* <CSSTransitionGroup */}
-                {/*     transitionName={'slideFoldAnimation'} */}
-                {/*     transitionAppear={true} */}
-                {/*     transitionAppearTimeout={0} */}
-                {/*     transitionEnterTimeout={0} */}
-                {/*     transitionLeaveTimeout={0}> */}
-
-                    {this.state.opened && this.renderDropdown()}
-                {/* </CSSTransitionGroup> */}
+                {this.state.opened && this.renderDropdown()}
             </div>
         );
     }
 }
 
-export default clickOutside(ComboBox);
+export default ComboBox;

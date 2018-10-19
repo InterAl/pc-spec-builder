@@ -2,7 +2,7 @@ import * as actions from '../actions/chosenProducts';
 import './SpecLine.less';
 import _ from 'lodash';
 import React from 'react';
-import ComboBox from './ComboBox';
+import ComboBox from './ComboBox/index.js';
 import numeral from 'numeral';
 
 export default class SpecLine extends React.Component {
@@ -69,7 +69,9 @@ export default class SpecLine extends React.Component {
             return {
                 value: p,
                 text: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`,
-                id: p.id
+                id: p.id,
+                price: p.price,
+                manufacturer: p.manufacturer
             };
         });
 

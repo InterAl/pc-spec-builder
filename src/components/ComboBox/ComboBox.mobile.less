@@ -1,0 +1,108 @@
+.comboBox-mobile-label {
+    direction: ltr;
+    text-align: left;
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.comboBox-modal-wrapper {
+    z-index: 12;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comboBox-modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 12;
+    background: rgba(1,1,1,0.3);
+}
+
+.comboBox-modal-content {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px;
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 14px 28px 0 rgba(0, 0, 0, 0.25), 0 10px 10px 0 rgba(0, 0, 0, 0.26);
+}
+
+.comboBox-modal-productList {
+    border-radius: 3px;
+    margin-top: 12px;
+    direction: ltr;
+    height: 100%;
+    overflow-y: auto;
+    background: #f5f5f5;
+    border: 1px solid #dcdada;
+    padding: 6px;
+
+    .product {
+        border-bottom: 1px solid #c7c7c7;
+        padding: 6px 0;
+    }
+}
+
+.comboBox-searchInput {
+    border: 1px solid #929090;
+    border-radius: 3px;
+    padding: 6px;
+
+    input {
+        height: 30px;
+    }
+}
+
+.comboBox-input-wrapper {
+    display: flex;
+}
+
+.comboBox-sort-wrapper {
+    select {
+        background: #fff;
+        padding: 4px;
+        border: 1px solid #929090;
+        border-radius: 3px;
+        margin-right: 12px;
+    }
+}
+
+.comboBox-resultCount {
+    margin-top: 16px;
+}
+
+.comboBox-clear-btn {
+    margin-bottom: 12px;
+    width: 15px;
+
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.comboBox-title {
+    display: flex;
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+    transition: opacity 150ms;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
