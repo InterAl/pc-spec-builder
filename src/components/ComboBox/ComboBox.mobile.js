@@ -17,7 +17,10 @@ export default class ComboBoxMobile extends Component {
     renderLabel(option) {
         return (
             <div className='comboBox-mobile-label' onClick={this.openModal}>
-                {option ? option.text : 'בחר מוצר'}
+                <div className="comboBox-clear" style={{marginRight: 6, color: 'red', fontSize: 21}} onClick={this.props.onClear}>
+                    ×
+                </div>
+                {option ? option.text : 'Select'}
             </div>
         );
     }
