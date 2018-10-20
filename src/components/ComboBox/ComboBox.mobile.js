@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {PropTypes} from './index.js';
 import Modal from '../Modal.js';
 import X from '../x';
+import cx from 'classnames';
 import './ComboBox.mobile.less';
 
 export default class ComboBoxMobile extends Component {
@@ -98,7 +99,12 @@ export default class ComboBoxMobile extends Component {
                     </div>
                     <div className='comboBox-modal-productList'>
                         {filteredProducts.map(o => (
-                        <div onClick={() => this.handleProductSelect(o)} className='product'>
+                            <div
+                                onClick={() => this.handleProductSelect(o)}
+                                className={cx('comboBox-modal-product', {
+                                    selected: o.id === this.props.value
+                                })}
+                            >
                                 {o.text}
                             </div>
                         ))}
