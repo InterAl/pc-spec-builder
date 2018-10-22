@@ -9,11 +9,16 @@ import './ComboBox.mobile.less';
 export default class ComboBoxMobile extends Component {
     static propTypes = PropTypes;
 
-    state = {
-        isModalOpen: false,
-        searchString: '',
-        sortBy: 'price'
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            isModalOpen: false,
+            searchString: '',
+            sortBy: 'price',
+            tab: '*'
+        }
+    }
 
     renderLabel(option) {
         return (
@@ -38,6 +43,12 @@ export default class ComboBoxMobile extends Component {
         this.closeModal();
     }
 
+    handleTabSelect = ev => {
+        this.setState({
+            tab: ev.target.value
+        });
+    }
+
     handleSortSelect = ev => {
         this.setState({
             sortBy: ev.target.value
@@ -51,9 +62,8 @@ export default class ComboBoxMobile extends Component {
     }
 
     filterProducts(options) {
-        return options.filter(option => {
-            return option.text.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1;
-        });
+        const tab = this.state.tab === '*' ? undefined : this.state.tab;
+        return this.props.filter(options, this.state.searchString, tab);
     }
 
     sortProducts(options) {
@@ -62,7 +72,7 @@ export default class ComboBoxMobile extends Component {
 
     renderModal() {
         const {isModalOpen} = this.state;
-        const {options} = this.props;
+        const {options, tabs} = this.props;
         const filteredProducts = this.sortProducts(this.filterProducts(options));
 
         return (
@@ -93,6 +103,20 @@ export default class ComboBoxMobile extends Component {
                                 <option value='manufacturer'>מיין לפי יצרן</option>
                             </select>
                         </div>
+                        {tabs.length > 1 && (
+                            <div className='comboBox-sort-wrapper comboBox-tabs-wrapper'>
+                                <select value={this.state.tab} onChange={this.handleTabSelect}>
+                                    <option key='*' value='*'>
+                                        הצג הכל
+                                    </option>
+                                    {_.map(tabs, (tab, idx) => (
+                                        <option key={idx} value={tab.value}>
+                                            {tab.text}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
                     </div>
                     <div className='comboBox-resultCount'>
                         {`מציג ${filteredProducts.length} מוצרים`}
