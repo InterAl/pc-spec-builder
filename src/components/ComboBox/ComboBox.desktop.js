@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import './ComboBox.desktop.less';
 import clickOutside from 'react-onclickoutside';
-import TextAreaAutoRows from '../TextAreaAutoRows.js';
 import {PropTypes} from './index.js';
 
 const noop = _.noop;
@@ -121,30 +120,17 @@ class ComboBox extends React.Component {
         this.setState({options});
     }
 
-    getTextValue(value) {
-        return value === undefined || value === null ? this.props.placeholder : this.state.value;
-    }
-
     renderSelect() {
-        const inputValue = this.getTextValue(this.state.value);
-
         return (
             <div className="comboBox-select" onClick={this.handleSelectClick}>
-                <TextAreaAutoRows
-                       className="hidden-md hidden-lg"
+                 <input
                        type="text"
                        ref="input"
-                       value={inputValue}
+                       value={this.state.value}
                        onFocus={()=>{this.refs.input.select()}}
                        onChange={this.handleTextChange}
-                 />
-                 <input
-                       className="hidden-xs hidden-sm"
-                       type="text"
-                       ref="input"
-                       value={inputValue}
-                       onFocus={()=>{this.refs.input.select()}}
-                       onChange={this.handleTextChange}/>
+                       placeholder={this.props.placeholder}
+                   />
                 {this.renderArrow()}
                 {this.props.onClear && this.renderClear()}
             </div>
