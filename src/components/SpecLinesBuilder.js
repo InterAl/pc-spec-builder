@@ -42,8 +42,9 @@ export default class SpecLinesBuilder extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!$('.specLinesBuilder').hasClass('fixed-header'))
+        if (!$('.specLinesBuilder').hasClass('fixed-header')) {
             this.originHeaderTop = $('.controls.row').offset().top;
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -137,10 +138,10 @@ export default class SpecLinesBuilder extends React.Component {
         return (
             <div className="categoryLine" key={idx}>
                 <div className="row">
-                    <div className="col-xs-1 pull-right category-image hidden-xs">
+                    <div className="col-xs-1 col-md-1 pull-right category-image hidden-xs">
                         <img src={this.state.categoryImages[category.id]} />
                     </div>
-                    <div className="col-xs-12 col-md-10 pull-right categoryNameRow">
+                    <div className="col-xs-12 col-md-11 pull-right categoryNameRow">
                         <button onClick={() => this.handleAddLine(category.id, idx)}
                                 className="btn btn-link"
                         >

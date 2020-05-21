@@ -101,6 +101,7 @@ export default class ComboBoxMobile extends Component {
                             <select value={this.state.sortBy} onChange={this.handleSortSelect}>
                                 <option value='price'>מיין לפי מחיר</option>
                                 <option value='manufacturer'>מיין לפי יצרן</option>
+                                <option value='popularity'>מיין לפי הכי נמכר</option>
                             </select>
                         </div>
                         {tabs.length > 1 && (

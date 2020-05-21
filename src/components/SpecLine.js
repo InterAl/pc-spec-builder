@@ -71,7 +71,8 @@ export default class SpecLine extends React.Component {
                 text: `₪ (+${numeral(p.price).format('0,0')}) - ${p.manufacturer} - ${p.id} - ${p.name}`,
                 id: p.id,
                 price: p.price,
-                manufacturer: p.manufacturer
+                manufacturer: p.manufacturer,
+                popularity: p.popularity
             };
         });
 
@@ -104,6 +105,9 @@ export default class SpecLine extends React.Component {
     renderQuantity() {
         return (
             <div className="quantity col-xs-1 pull-right">
+                <label className='fieldLabel'>
+                    כמות
+                </label>
                 <span className="pull-right">
                     <input type="textbox"
                            className="input-xs"
